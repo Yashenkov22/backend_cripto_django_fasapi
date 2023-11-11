@@ -38,11 +38,13 @@ class Command(BaseCommand):
                 check = Rating.objects.first()
                 if not check:
                     exchange_list = Exchange.objects.all()
+                    print('check 1')
                     rating_dict = parse_rate()
                     for exchange in exchange_list:
                         Rating.objects.create(exchange_name=exchange.name,
                                             rating=rating_dict.get(exchange.name),
                                             exchange=exchange)
+                        print('check 2')
 
 
             create_rating()

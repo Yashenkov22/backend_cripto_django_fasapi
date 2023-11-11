@@ -1,8 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-from .services import xml_parser
 
 
 class Exchange(models.Model):
@@ -15,6 +11,7 @@ class Rating(models.Model):
     exchange_name = models.CharField(max_length=50, primary_key=True)
     rating = models.CharField(max_length=50, null=True, default=None)
     exchange = models.ForeignKey(Exchange, on_delete=models.CASCADE)
+
 
 class NoCashValute(models.Model):
     type_list = [
@@ -42,6 +39,8 @@ class Direction(models.Model):
                                   on_delete=models.CASCADE,
                                   related_name='valutes_to')
     
+    direction_name = models.CharField(max_length=20, unique=True)
+    
     class Meta:
         unique_together = (("valute_from", "valute_to"),)
     
@@ -57,32 +56,3 @@ class ExchangeDirection(models.Model):
     out_count = models.FloatField()
     min_amount = models.CharField(max_length=50)
     max_amount = models.CharField(max_length=50)
-
-
-
-#Signal to add direction for every exchange
-@receiver(post_save, sender=Direction)
-def add_directions_to_exchanges(sender, instance, created, **kwargs):
-    if created:
-        exchange_list = Exchange.objects.all()
-        for exchange in exchange_list:
-            dict_for_parser = exchange.__dict__ | instance.__dict__
-            print(dict_for_parser)
-            dict_for_exchange_direction = xml_parser(dict_for_parser)
-            dict_for_exchange_direction['exchange_name'] = exchange
-            ExchangeDirection.objects.create(**dict_for_exchange_direction)
-            print('DONE')
-            # break
-        
-        # if list_orders_on_wait:
-        #     list_email_for_sending = tuple(map(lambda order: order.customer.email,
-        #                                        list_orders_on_wait))
-        #     model, version = instance.serial.split('-')
-            
-        #     #Run celery task
-        #     background_send_email.delay(list_email_for_sending,
-        #                                 model,
-        #                                 version)
-            
-        #     #Delete orders waiting this robot
-        #     list_orders_on_wait.delete()
