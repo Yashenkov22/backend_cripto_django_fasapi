@@ -24,11 +24,8 @@ def xml_parser(direction_dict: dict):
 
             if element is not None:
                 dict_for_addition = {
-                    #  'exchange_name': exchange_name,
                     'valute_from': valute_from,
                     'valute_to': valute_to,
-                    #  'direction_name': valute_from + '_' + valute_to,
-                    
                     'in_count': element.find('in').text,
                     'out_count': element.find('out').text,
                     'min_amount': element.find('minamount').text,
@@ -37,7 +34,6 @@ def xml_parser(direction_dict: dict):
                 return dict_for_addition
             else:
                 error_text = root.text
-                # print(error_element)
                 if error_text == 'Техническое обслуживание':
                     raise TechServiceWork(f'Техническое обслуживание по адресу {xml_url}')
                 else:

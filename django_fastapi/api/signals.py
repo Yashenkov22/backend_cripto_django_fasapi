@@ -2,8 +2,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from .models import Exchange, Direction, ExchangeDirection
-from .services import xml_parser
-from .exc import TechServiceWork, NoFoundXmlElement, RobotCheckError
+from .tasks import try_create_direction
 
 
 
@@ -14,16 +13,12 @@ def add_directions_to_exchanges(sender, instance, created, **kwargs):
         exchange_list = Exchange.objects.all()
         for exchange in exchange_list:
             dict_for_parser = exchange.__dict__ | instance.__dict__
-            # print(dict_for_parser)
-            try:
-                dict_for_exchange_direction = xml_parser(dict_for_parser)
-            except (TechServiceWork, NoFoundXmlElement, RobotCheckError):
-                continue
-            else:
-                dict_for_exchange_direction['exchange_name'] = exchange
-                ExchangeDirection.objects.create(**dict_for_exchange_direction)
+            dict_for_parser.pop('_state')
+
+            try_create_direction.delay(dict_for_parser)
 
 
+#Signal to delete all related direction records
 @receiver(post_delete, sender=Direction)
 def add_directions_to_exchanges(sender, instance, **kwargs):
     direction_list = ExchangeDirection.objects.filter(valute_from=instance.valute_from,
