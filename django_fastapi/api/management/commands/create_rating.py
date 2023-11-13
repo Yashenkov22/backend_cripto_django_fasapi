@@ -48,5 +48,6 @@ class Command(BaseCommand):
 
 
             create_rating()
-        except:
+        except Exception as ex:
+            print(ex)
             raise CommandError('Initalization failed.')

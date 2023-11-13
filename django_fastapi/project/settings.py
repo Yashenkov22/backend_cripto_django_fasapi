@@ -1,5 +1,7 @@
 import os
 
+from config import DB_USER, DB_PASS, DB_HOST, DB_NAME, DB_PORT
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "secret-key"
 DEBUG = True
@@ -52,11 +54,12 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "test_api_db",
-        "USER": "postgres",
-        "PASSWORD": "12345",
-        "HOST": "localhost",
-        "PORT": "5432",
+        # "NAME": "test_api_db",
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASS,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
     }
 }
 
@@ -77,4 +80,9 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 PROJECT_NAME = "django-fastapi-project"
+
+
+CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'
