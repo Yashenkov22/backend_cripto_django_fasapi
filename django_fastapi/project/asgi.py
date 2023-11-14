@@ -17,7 +17,7 @@ from api.endpoints import api_router
 
 
 def get_application() -> FastAPI:
-    app = FastAPI(title=settings.PROJECT_NAME, debug=settings.DEBUG)
+    app = FastAPI(title='BestChangeTgBot API', debug=settings.DEBUG)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.ALLOWED_HOSTS or ["*"],

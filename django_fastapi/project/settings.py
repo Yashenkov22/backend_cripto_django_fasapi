@@ -2,10 +2,19 @@ import os
 
 from config import DB_USER, DB_PASS, DB_HOST, DB_NAME, DB_PORT
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 SECRET_KEY = "secret-key"
+
 DEBUG = True
+
+LANGUAGE_CODE = 'ru'
+
+TIME_ZONE = 'Europe/Moscow'
+
 ALLOWED_HOSTS = []
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -54,8 +63,8 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        # "NAME": "test_api_db",
-        "NAME": DB_NAME,
+        "NAME": "test_api_db",
+        # "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASS,
         "HOST": DB_HOST,
@@ -84,5 +93,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PROJECT_NAME = "django-fastapi-project"
 
-
-CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'
+# CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'

@@ -9,7 +9,7 @@ class NoCashValuteModel(BaseModel):
 
 class CurrentDirection(BaseModel):
     name: str
-    partner_link: str
+    partner_link: str | None
     valute_from: str
     valute_to: str
     in_count: float
@@ -17,16 +17,3 @@ class CurrentDirection(BaseModel):
     min_amount: str
     max_amount: str
     # rating: str
-
-
-
-# class ItemCreate(ItemBase):
-#     pass
-
-
-# class Item(ItemBase):
-#     id: int
-#     owner_id: int
-
-#     class Config:
-#         orm_mode = True

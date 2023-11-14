@@ -16,14 +16,25 @@ class NoCashValuteAdmin(admin.ModelAdmin):
 
 @admin.register(Direction)
 class DirectionAdmin(admin.ModelAdmin):
-    list_display = ("direction_name", )
-    readonly_fields = ('direction_name', )
+    list_display = ("get_direction_name", )
 
-    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
-        obj.direction_name = form.data.get("valute_from") + ' -> ' + form.data.get("valute_to")
-        return super().save_model(request, obj, form, change)
+    def has_change_permission(self, request, obj = None):
+        return False
+
+    def get_direction_name(self, obj):
+        return f'{obj.valute_from} -> {obj.valute_to}'
 
 
 @admin.register(ExchangeDirection)
 class ExchangeDirectionAdmin(admin.ModelAdmin):
-    list_display = ("exchange_name", "valute_from", "valute_to")
+    list_display = ("get_display_name", )
+    # readonly_fields = [field.name for field in ExchangeDirection._meta.fields if field.name != 'id']
+
+    def has_change_permission(self, request, obj = None):
+        return False
+    
+    def has_add_permission(self, request, obj = None):
+        return False
+
+    def get_display_name(self, obj):
+        return f'{obj.exchange_name} ({obj.valute_from} -> {obj.valute_to})'
