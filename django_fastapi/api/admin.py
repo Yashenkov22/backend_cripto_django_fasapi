@@ -28,7 +28,6 @@ class DirectionAdmin(admin.ModelAdmin):
 @admin.register(ExchangeDirection)
 class ExchangeDirectionAdmin(admin.ModelAdmin):
     list_display = ("get_display_name", )
-    # readonly_fields = [field.name for field in ExchangeDirection._meta.fields if field.name != 'id']
 
     def has_change_permission(self, request, obj = None):
         return False
