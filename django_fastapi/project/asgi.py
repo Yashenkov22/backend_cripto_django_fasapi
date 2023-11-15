@@ -20,7 +20,7 @@ def get_application() -> FastAPI:
     app = FastAPI(title='BestChangeTgBot API', debug=settings.DEBUG)
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.ALLOWED_HOSTS or ["*"],
+        allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
