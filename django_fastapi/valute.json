@@ -378,7 +378,8 @@
         "pk": 1,
         "fields": {
             "name": "JPMarket",
-            "xml_url": "https://jpmarket.cc/request-exportxml.xml"
+            "xml_url": "https://jpmarket.cc/request-exportxml.xml",
+            "partner_link": "https://jpmarket.cc?"
         }
     },
     {
@@ -386,7 +387,8 @@
         "pk": 1,
         "fields": {
             "name": "Finex24",
-            "xml_url": "https://finex24.io/request-exportxml.xml"
+            "xml_url": "https://finex24.io/request-exportxml.xml",
+            "partner_link": "https://finex24.io?"
         }
     },
     {
@@ -394,7 +396,8 @@
         "pk": 1,
         "fields": {
             "name": "Nadex",
-            "xml_url": "https://nadex.io/request-exportxml.xml"
+            "xml_url": "https://nadex.io/request-exportxml.xml",
+            "partner_link": "https://nadex.io?"
         }
     },
     {
@@ -402,7 +405,8 @@
         "pk": 1,
         "fields": {
             "name": "99Francs",
-            "xml_url": "https://99francs.pro/request-exportxml.xml"
+            "xml_url": "https://99francs.pro/request-exportxml.xml",
+            "partner_link": "https://99francs.pro?"
         }
     },
     {
@@ -410,7 +414,8 @@
         "pk": 1,
         "fields": {
             "name": "CoolCoin",
-            "xml_url": "https://coolcoin.best/request-exportxml.xml"
+            "xml_url": "https://coolcoin.best/request-exportxml.xml",
+            "partner_link": "https://coolcoin.best?"
         }
     },
     {
@@ -418,7 +423,8 @@
         "pk": 1,
         "fields": {
             "name": "ChangeProject",
-            "xml_url": "https://changeproject.bz/request-exportxml.xml"
+            "xml_url": "https://changeproject.bz/request-exportxml.xml",
+            "partner_link": "https://changeproject.bz?"
         }
     },
     {
@@ -426,7 +432,8 @@
         "pk": 1,
         "fields": {
             "name": "50Cents",
-            "xml_url": "https://50cents.pro/request-exportxml.xml"
+            "xml_url": "https://50cents.pro/request-exportxml.xml",
+            "partner_link": "https://50cents.pro?"
         }
     },
     {
@@ -434,7 +441,8 @@
         "pk": 1,
         "fields": {
             "name": "КриптоКасса",
-            "xml_url": "https://cryptokacca.pro/request-exportxml.xml"
+            "xml_url": "https://cryptokacca.pro/request-exportxml.xml",
+            "partner_link": "https://cryptokacca.pro?"
         }
     },
     {
@@ -442,7 +450,8 @@
         "pk": 1,
         "fields": {
             "name": "UniCash",
-            "xml_url": "https://unicash.pro/request-exportxml.xml"
+            "xml_url": "https://unicash.pro/request-exportxml.xml",
+            "partner_link": "https://unicash.pro?"
         }
     },
     {
@@ -450,7 +459,8 @@
         "pk": 1,
         "fields": {
             "name": "Пандпэй",
-            "xml_url": "https://pandpay.net/request-exportxml.xml"
+            "xml_url": "https://pandpay.net/request-exportxml.xml",
+            "partner_link": "https://pandpay.net?"
         }
     },
     {
@@ -458,7 +468,8 @@
         "pk": 1,
         "fields": {
             "name": "ГоугоуБит",
-            "xml_url": "https://gogobit.cc/request-exportxml.xml"
+            "xml_url": "https://gogobit.cc/request-exportxml.xml",
+            "partner_link": "https://gogobit.cc?"
         }
     },
     {
@@ -466,7 +477,8 @@
         "pk": 1,
         "fields": {
             "name": "BroExchange",
-            "xml_url": "https://bro.exchange/request-exportxml.xml"
+            "xml_url": "https://bro.exchange/request-exportxml.xml",
+            "partner_link": "https://bro.exchange?"
         }
     },
     {
@@ -474,7 +486,8 @@
         "pk": 1,
         "fields": {
             "name": "CashBox",
-            "xml_url": "https://cashbox.exchange/request-exportxml.xml"
+            "xml_url": "https://cashbox.exchange/request-exportxml.xml",
+            "partner_link": "https://cashbox.exchange?"
         }
     },
     {
@@ -482,7 +495,8 @@
         "pk": 1,
         "fields": {
             "name": "КупиБит",
-            "xml_url": "https://kupibit.me/request-exportxml.xml"
+            "xml_url": "https://kupibit.me/request-exportxml.xml",
+            "partner_link": "https://kupibit.me?"
         }
     },
     {
@@ -490,7 +504,8 @@
         "pk": 1,
         "fields": {
             "name": "CryptoHome",
-            "xml_url": "https://cryptohome.me/request-exportxml.xml"
+            "xml_url": "https://cryptohome.me/request-exportxml.xml",
+            "partner_link": "https://cryptohome.me?"
         }
     },
     {
@@ -498,7 +513,8 @@
         "pk": 1,
         "fields": {
             "name": "БухтаОбмена",
-            "xml_url": "https://buhtaobmena.me/request-exportxml.xml"
+            "xml_url": "https://buhtaobmena.me/request-exportxml.xml",
+            "partner_link": "https://buhtaobmena.me?"
         }
     },
     {
@@ -506,7 +522,8 @@
         "pk": 1,
         "fields": {
             "name": "Excoin",
-            "xml_url": "https://excoin.in/request-exportxml.xml"
+            "xml_url": "https://excoin.in/request-exportxml.xml",
+            "partner_link": "https://excoin.in?"
         }
     },
     {
@@ -514,7 +531,8 @@
         "pk": 1,
         "fields": {
             "name": "Adb",
-            "xml_url": "https://adb.bz/request-exportxml.xml"
+            "xml_url": "https://adb.bz/request-exportxml.xml",
+            "partner_link": "https://adb.bz?"
         }
     },
     {
@@ -522,7 +540,8 @@
         "pk": 1,
         "fields": {
             "name": "BitBong",
-            "xml_url": "https://bitbong.pro/request-exportxml.xml"
+            "xml_url": "https://bitbong.pro/request-exportxml.xml",
+            "partner_link": "https://bitbong.pro?"
         }
     },
     {
@@ -530,7 +549,8 @@
         "pk": 1,
         "fields": {
             "name": "SwiftChange",
-            "xml_url": "https://swiftchange.net/request-exportxml.xml"
+            "xml_url": "https://swiftchange.net/request-exportxml.xml",
+            "partner_link": "https://swiftchange.net?"
         }
     },
     {
@@ -538,7 +558,8 @@
         "pk": 1,
         "fields": {
             "name": "CryptoMax",
-            "xml_url": "https://cryptomax.ru/request-exportxml.xml"
+            "xml_url": "https://cryptomax.ru/request-exportxml.xml",
+            "partner_link": "https://cryptomax.ru?"
         }
     },
     {
@@ -546,7 +567,8 @@
         "pk": 1,
         "fields": {
             "name": "YaObmen",
-            "xml_url": "https://yaobmen.cash/request-exportxml.xml"
+            "xml_url": "https://yaobmen.cash/request-exportxml.xml",
+            "partner_link": "https://yaobmen.cash?"
         }
     },
     {
@@ -554,7 +576,8 @@
         "pk": 1,
         "fields": {
             "name": "Обменко",
-            "xml_url": "https://obmenko.org/request-exportxml.xml"
+            "xml_url": "https://obmenko.org/request-exportxml.xml",
+            "partner_link": "https://obmenko.org?"
         }
     },
     {
@@ -562,7 +585,8 @@
         "pk": 1,
         "fields": {
             "name": "WMSell",
-            "xml_url": "https://wmsell.biz/request-exportxml.xml"
+            "xml_url": "https://wmsell.biz/request-exportxml.xml",
+            "partner_link": "https://wmsell.biz?"
         }
     },
     {
@@ -570,7 +594,8 @@
         "pk": 1,
         "fields": {
             "name": "Bitcoin24Pro",
-            "xml_url": "https://bitcoin-24.pro/request-exportxml.xml"
+            "xml_url": "https://bitcoin-24.pro/request-exportxml.xml",
+            "partner_link": "https://bitcoin-24.pro?"
         }
     },
     {
@@ -578,7 +603,8 @@
         "pk": 1,
         "fields": {
             "name": "Crypto-Market24",
-            "xml_url": "https://cryptomarket24.top/request-exportxml.xml"
+            "xml_url": "https://cryptomarket24.top/request-exportxml.xml",
+            "partner_link": "https://cryptomarket24.top?"
         }
     },
     {
@@ -586,7 +612,8 @@
         "pk": 1,
         "fields": {
             "name": "TraiderIdeal",
-            "xml_url": "https://traiderideal.ru/request-exportxml.xml"
+            "xml_url": "https://traiderideal.ru/request-exportxml.xml",
+            "partner_link": "https://traiderideal.ru?"
         }
     },
     {
@@ -594,7 +621,8 @@
         "pk": 1,
         "fields": {
             "name": "VV-Obmen",
-            "xml_url": "https://vv-obmen.net/request-exportxml.xml"
+            "xml_url": "https://vv-obmen.net/request-exportxml.xml",
+            "partner_link": "https://vv-obmen.net?"
         }
     },
     {
@@ -602,7 +630,8 @@
         "pk": 1,
         "fields": {
             "name": "КриптоРай",
-            "xml_url": "https://cryptor.ai/request-exportxml.xml"
+            "xml_url": "https://cryptor.ai/request-exportxml.xml",
+            "partner_link": "https://cryptor.ai?"
         }
     },
     {
@@ -610,7 +639,8 @@
         "pk": 1,
         "fields": {
             "name": "CryptoShopping",
-            "xml_url": "https://cryptoshopping.ru/request-exportxml.xml"
+            "xml_url": "https://cryptoshopping.ru/request-exportxml.xml",
+            "partner_link": "https://cryptoshopping.ru?"
         }
     },
     {
@@ -618,7 +648,8 @@
         "pk": 1,
         "fields": {
             "name": "FehuPay",
-            "xml_url": "https://fehupay.com/request-exportxml.xml"
+            "xml_url": "https://fehupay.com/request-exportxml.xml",
+            "partner_link": "https://fehupay.com?"
         }
     },
     {
@@ -626,7 +657,8 @@
         "pk": 1,
         "fields": {
             "name": "N1ex",
-            "xml_url": "https://n1ex.exchange.zone/request-exportxml.xml"
+            "xml_url": "https://n1ex.exchange.zone/request-exportxml.xml",
+            "partner_link": "https://n1ex.exchange.zone?"
         }
     },
     {
@@ -634,7 +666,8 @@
         "pk": 1,
         "fields": {
             "name": "Об-мен",
-            "xml_url": "https://ob-men.com/request-exportxml.xml"
+            "xml_url": "https://ob-men.com/request-exportxml.xml",
+            "partner_link": "https://ob-men.com?"
         }
     },
     {
@@ -642,7 +675,8 @@
         "pk": 1,
         "fields": {
             "name": "ТочкаОбмена",
-            "xml_url": "https://tochkaobmena.com/request-exportxml.xml"
+            "xml_url": "https://tochkaobmena.com/request-exportxml.xml",
+            "partner_link": "https://tochkaobmena.com?"
         }
     },
     {
@@ -650,7 +684,8 @@
         "pk": 1,
         "fields": {
             "name": "Criptify",
-            "xml_url": "https://criptify.com/request-exportxml.xml"
+            "xml_url": "https://criptify.com/request-exportxml.xml",
+            "partner_link": "https://criptify.com?"
         }
     },
     {
@@ -658,7 +693,8 @@
         "pk": 1,
         "fields": {
             "name": "X-Obmen",
-            "xml_url": "https://x-obmen.biz/request-exportxml.xml"
+            "xml_url": "https://x-obmen.biz/request-exportxml.xml",
+            "partner_link": "https://x-obmen.biz?"
         }
     },
     {
@@ -666,7 +702,8 @@
         "pk": 1,
         "fields": {
             "name": "BTCSale",
-            "xml_url": "https://btcsale.me/request-exportxml.xml"
+            "xml_url": "https://btcsale.me/request-exportxml.xml",
+            "partner_link": "https://btcsale.me?"
         }
     },
     {
@@ -674,7 +711,8 @@
         "pk": 1,
         "fields": {
             "name": "Оборот",
-            "xml_url": "https://oborot.net/request-exportxml.xml"
+            "xml_url": "https://oborot.net/request-exportxml.xml",
+            "partner_link": "https://oborot.net?"
         }
     },
     {
@@ -682,7 +720,8 @@
         "pk": 1,
         "fields": {
             "name": "SpbWMCasher",
-            "xml_url": "https://spbwmcasher.ru/request-exportxml.xml"
+            "xml_url": "https://spbwmcasher.ru/request-exportxml.xml",
+            "partner_link": "https://spbwmcasher.ru?"
         }
     },
     {
@@ -690,7 +729,8 @@
         "pk": 1,
         "fields": {
             "name": "GlobalBits",
-            "xml_url": "https://globalbits.org/request-exportxml.xml"
+            "xml_url": "https://globalbits.org/request-exportxml.xml",
+            "partner_link": "https://globalbits.org?"
         }
     },
     {
@@ -698,7 +738,8 @@
         "pk": 1,
         "fields": {
             "name": "Apexchange",
-            "xml_url": "https://apexchange.cc/request-exportxml.xml"
+            "xml_url": "https://apexchange.cc/request-exportxml.xml",
+            "partner_link": "https://apexchange.cc?"
         }
     },
     {
@@ -706,7 +747,8 @@
         "pk": 1,
         "fields": {
             "name": "Perfect-Change",
-            "xml_url": "https://perfect-change.com/request-exportxml.xml"
+            "xml_url": "https://perfect-change.com/request-exportxml.xml",
+            "partner_link": "https://perfect-change.com?"
         }
     },
     {
@@ -714,7 +756,8 @@
         "pk": 1,
         "fields": {
             "name": "Coin-Bank",
-            "xml_url": "https://coin-bank.co/request-exportxml.xml"
+            "xml_url": "https://coin-bank.co/request-exportxml.xml",
+            "partner_link": "https://coin-bank.co?"
         }
     },
     {
@@ -722,7 +765,8 @@
         "pk": 1,
         "fields": {
             "name": "Top-Exchange",
-            "xml_url": "https://top-exchange.com/request-exportxml.xml"
+            "xml_url": "https://top-exchange.com/request-exportxml.xml",
+            "partner_link": "https://top-exchange.com?"
         }
     },
     {
@@ -730,7 +774,8 @@
         "pk": 1,
         "fields": {
             "name": "FlashObmen",
-            "xml_url": "https://flashobmen.com/request-exportxml.xml"
+            "xml_url": "https://flashobmen.com/request-exportxml.xml",
+            "partner_link": "https://flashobmen.com?"
         }
     }
 

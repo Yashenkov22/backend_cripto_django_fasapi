@@ -11,15 +11,21 @@ api_router = APIRouter()
 #rating ?
 @api_router.get("/directions", response_model=List[schemas.CurrentDirection])
 def get_current_direction_list(valute_from: str, valute_to: str):
+    valute_from, valute_to = valute_from.upper(), valute_to.upper()
+
     queries = models.ExchangeDirection.objects\
             .filter(valute_from=valute_from,valute_to=valute_to)\
             .select_related('exchange_name').all()
+    
     direction_list = []
+    id_count = 1
 
     for query in queries:
         if query.exchange_name.__dict__.get('partner_link'):
-            query.exchange_name.__dict__['partner_link'] += f'?cur_from={valute_from}&cur_to={valute_to}'
+            query.exchange_name.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
         direction = query.__dict__ | query.exchange_name.__dict__
+        direction['id'] = id_count
+        id_count += 1
         direction_list.append(direction)
 
     return direction_list

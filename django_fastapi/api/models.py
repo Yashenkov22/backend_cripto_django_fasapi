@@ -2,13 +2,21 @@ from django.db import models
 
 
 class Exchange(models.Model):
-    name = models.CharField(max_length=20, primary_key=True)
-    xml_url = models.CharField(max_length=50)
-    partner_link = models.CharField(max_length=50, blank=True, null=True, default=None)
+    name = models.CharField('Название обменника',
+                            max_length=20,
+                            primary_key=True)
+    xml_url = models.CharField('Сслыка на XML файл',
+                               max_length=50)
+    partner_link = models.CharField('Партнёрская ссылка',
+                                    max_length=50,
+                                    blank=True,
+                                    null=True,
+                                    default=None)
 
     class Meta:
         verbose_name = 'Обменник'
         verbose_name_plural = 'Обменники'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -28,13 +36,20 @@ class NoCashValute(models.Model):
         ('Интернет-банкинг', 'Интернет-банкинг'),
         ('Денежные переводы', 'Денежные переводы'),
         ]
-    name = models.CharField(max_length=50, primary_key=True)
-    code_name = models.CharField(max_length=10, unique=True)
-    type_valute = models.CharField(max_length=30, choices=type_list)
+    name = models.CharField('Название валюты',
+                            max_length=50,
+                            primary_key=True)
+    code_name = models.CharField('Кодовое сокращение',
+                                 max_length=10,
+                                 unique=True)
+    type_valute = models.CharField('Тип валюты',
+                                   max_length=30,
+                                   choices=type_list)
 
     class Meta:
         verbose_name = 'Безналичная валюта'
         verbose_name_plural = 'Безналичные валюты'
+        ordering = ['type_valute', 'name']
 
     def __str__(self):
         return self.code_name
@@ -55,7 +70,7 @@ class Direction(models.Model):
     class Meta:
         unique_together = (("valute_from", "valute_to"), )
         verbose_name = 'Направление для обмена'
-        verbose_name_plural = 'Направления для обмена'        
+        verbose_name_plural = 'Направления для обмена'
     
     def __str__(self):
         return self.valute_from.code_name + ' -> ' + self.valute_to.code_name
@@ -73,6 +88,7 @@ class ExchangeDirection(models.Model):
     max_amount = models.CharField('Максимальное количество', max_length=50)
 
     class Meta:
+        unique_together = (("exchange_name", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
         ordering = ['exchange_name']

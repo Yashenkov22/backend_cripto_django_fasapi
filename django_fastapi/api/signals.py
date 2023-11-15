@@ -20,7 +20,16 @@ def add_directions_to_exchanges(sender, instance, created, **kwargs):
 
 #Signal to delete all related direction records
 @receiver(post_delete, sender=Direction)
-def add_directions_to_exchanges(sender, instance, **kwargs):
+def delete_directions_to_exchanges(sender, instance, **kwargs):
     direction_list = ExchangeDirection.objects.filter(valute_from=instance.valute_from,
                                                       valute_to=instance.valute_to).all()
     direction_list.delete()
+
+
+
+#Signal to delete all related direction records
+# @receiver(post_save, sender=ExchangeDirection)
+# def add_direct(sender, instance, created, **kwargs):
+#     if created:
+#         print('CREATED!!!!', instance.exchange_name)
+

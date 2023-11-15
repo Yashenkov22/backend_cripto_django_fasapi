@@ -8,6 +8,7 @@ class NoCashValuteModel(BaseModel):
 
 
 class CurrentDirection(BaseModel):
+    id: int
     name: str
     partner_link: str | None
     valute_from: str
