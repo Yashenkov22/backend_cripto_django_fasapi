@@ -13,7 +13,7 @@ LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wttonline.ru']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
