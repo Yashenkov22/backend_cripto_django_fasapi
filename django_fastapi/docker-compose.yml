@@ -32,7 +32,7 @@ services:
 
   celery_worker:
     build: .
-    command: sh -c 'celery -A project worker -l info'
+    command: sh -c 'celery -A project worker -l info -c 8'
     environment:
       - POSTGRES_HOST=psql_db
     env_file:

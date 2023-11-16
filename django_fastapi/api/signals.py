@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
 from .models import Exchange, Direction, ExchangeDirection
@@ -28,8 +28,15 @@ def delete_directions_to_exchanges(sender, instance, **kwargs):
 
 
 #Signal to delete all related direction records
-# @receiver(post_save, sender=ExchangeDirection)
+# @receiver(pre_save, sender=Exchange)
+# def add_direct(sender, instance, **kwargs):
+#         print(instance.__dict__)
+#         print('BEFORE UPDATED!!!!', kwargs)
+
+
+# @receiver(post_save, sender=Exchange)
 # def add_direct(sender, instance, created, **kwargs):
-#     if created:
-#         print('CREATED!!!!', instance.exchange_name)
+#         print(instance.__dict__)
+#         print('AFTER UPDATED!!!!', kwargs)
+    
 

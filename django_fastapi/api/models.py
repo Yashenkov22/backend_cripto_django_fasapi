@@ -1,4 +1,9 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+
+def is_positive_validate(value: int):
+    if value < 0:
+        raise ValidationError(f'Частота должна быть положительной, передано: {value}')
 
 
 class Exchange(models.Model):
@@ -12,6 +17,11 @@ class Exchange(models.Model):
                                     blank=True,
                                     null=True,
                                     default=None)
+    period_for_update = models.IntegerField('Частота обновлений в минутах',
+                                            blank=True,
+                                            null=True,
+                                            default=None,
+                                            validators=[is_positive_validate])
 
     class Meta:
         verbose_name = 'Обменник'
@@ -79,7 +89,8 @@ class Direction(models.Model):
 class ExchangeDirection(models.Model):
     exchange_name = models.ForeignKey(Exchange,
                                       on_delete=models.CASCADE,
-                                      verbose_name='Обменник')
+                                      verbose_name='Обменник',
+                                      related_name='directions')
     valute_from = models.CharField('Отдаём', max_length=10)
     valute_to = models.CharField('Получаем', max_length=10)
     in_count = models.FloatField('Сколько отдаём')
@@ -91,7 +102,7 @@ class ExchangeDirection(models.Model):
         unique_together = (("exchange_name", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange_name']
+        ordering = ['exchange_name', 'valute_from']
 
     def __str__(self):
         return f'{self.exchange_name} ({self.valute_from} -> {self.valute_to})'
