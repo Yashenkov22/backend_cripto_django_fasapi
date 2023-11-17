@@ -11,11 +11,10 @@ services:
       - ./.env
     container_name: django_fastapi
     ports:
-      - '80:8000'
+      - '8000:8000'
     depends_on:
       - psql_db
       - rabbitmq3
-      - celery_worker
     command: sh -c "python manage.py makemigrations &&
                     python manage.py migrate &&
                     python manage.py loaddata valute.json &&
@@ -40,6 +39,21 @@ services:
     depends_on:
       - rabbitmq3
       - psql_db
+      - django_fastapi
+
+  celery_beat:
+    build: .
+    restart: always
+    command: sh -c 'celery -A project beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler'
+    environment:
+      - POSTGRES_HOST=psql_db
+    env_file:
+      - ./.env
+    depends_on:
+      - rabbitmq3
+      - psql_db
+      - celery_worker
+      - django_fastapi
 
   psql_db:
     image: postgres:14

@@ -1,6 +1,8 @@
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
+from django_celery_beat.models import PeriodicTask
+
 from .models import Exchange, Direction, ExchangeDirection
 from .tasks import try_create_direction
 
@@ -27,16 +29,9 @@ def delete_directions_to_exchanges(sender, instance, **kwargs):
 
 
 
-#Signal to delete all related direction records
-# @receiver(pre_save, sender=Exchange)
-# def add_direct(sender, instance, **kwargs):
-#         print(instance.__dict__)
-#         print('BEFORE UPDATED!!!!', kwargs)
-
-
-# @receiver(post_save, sender=Exchange)
-# def add_direct(sender, instance, created, **kwargs):
-#         print(instance.__dict__)
-#         print('AFTER UPDATED!!!!', kwargs)
+#Signal to delete related periodic task for Exchange
+@receiver(post_delete, sender=Exchange)
+def delete_task_for_exchange(sender, instance, **kwargs):
+    PeriodicTask.objects.get(name=f'{instance.name} task').delete()
     
 

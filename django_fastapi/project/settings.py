@@ -11,7 +11,7 @@ DEBUG = True
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'Europe/Moscow'
+# TIME_ZONE = 'Europe/Moscow'
 
 # ALLOWED_HOSTS = ['wttonline.ru']
 
