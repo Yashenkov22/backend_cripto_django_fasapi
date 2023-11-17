@@ -5,19 +5,20 @@ from django_celery_beat.models import PeriodicTask
 
 from .models import Exchange, Direction, ExchangeDirection
 from .tasks import try_create_direction
+from .periodic_tasks import manage_periodic_task
 
 
 
 #Signal to add direction for every exchange
-@receiver(post_save, sender=Direction)
-def add_directions_to_exchanges(sender, instance, created, **kwargs):
-    if created:
-        exchange_list = Exchange.objects.all()
-        for exchange in exchange_list:
-            dict_for_parser = exchange.__dict__ | instance.__dict__
-            dict_for_parser.pop('_state')
+# @receiver(post_save, sender=Direction)
+# def add_directions_to_exchanges(sender, instance, created, **kwargs):
+#     if created:
+#         exchange_list = Exchange.objects.all()
+#         for exchange in exchange_list:
+#             dict_for_parser = exchange.__dict__ | instance.__dict__
+#             dict_for_parser.pop('_state')
 
-            try_create_direction.delay(dict_for_parser)
+#             try_create_direction.delay(dict_for_parser)
 
 
 #Signal to delete all related direction records
@@ -27,6 +28,13 @@ def delete_directions_to_exchanges(sender, instance, **kwargs):
                                                       valute_to=instance.valute_to).all()
     direction_list.delete()
 
+
+#Signal to create periodic task for exchange
+@receiver(post_save, sender=Exchange)
+def create_task_for_exchange(sender, instance, created, **kwargs):
+    if created:
+        print('PERIODIC TASK CREATING...')
+        manage_periodic_task(instance.name, instance.period_for_update)
 
 
 #Signal to delete related periodic task for Exchange

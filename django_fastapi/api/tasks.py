@@ -55,10 +55,11 @@ def update_diretions_for_exchange(exchange_name: str):
 
     direction_list = Direction.objects.select_related('valute_from', 'valute_to').all()
 
-    for direct in direction_list:
-        # print(direct.__dict__)
-        dict_for_parse = exchange.__dict__ | direct.__dict__
-        dict_for_parse.pop('_state')
-        try_update_direction.delay(dict_for_parse)
-        # print(dict_for_parse)
-    # print('INSIDE TASK!!!!')
+    if direction_list:
+        for direct in direction_list:
+            # print(direct.__dict__)
+            dict_for_parse = exchange.__dict__ | direct.__dict__
+            dict_for_parse.pop('_state')
+            try_update_direction.delay(dict_for_parse)
+            # print(dict_for_parse)
+        # print('INSIDE TASK!!!!')

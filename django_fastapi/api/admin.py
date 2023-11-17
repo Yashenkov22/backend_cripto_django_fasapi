@@ -42,6 +42,7 @@ class ExchangeAdmin(admin.ModelAdmin):
             obj.save(update_fields=update_fields)
         else:
             print('NOT CHANGE!!!!')
+            # manage_periodic_task(obj.name, obj.period_for_update)
             return super().save_model(request, obj, form, change)
 
 

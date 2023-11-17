@@ -17,10 +17,10 @@ class Exchange(models.Model):
                                     blank=True,
                                     null=True,
                                     default=None)
-    period_for_update = models.IntegerField('Частота обновлений в минутах',
+    period_for_update = models.IntegerField('Частота обновлений в секундах',
                                             blank=True,
                                             null=True,
-                                            default=None,
+                                            default=30,
                                             validators=[is_positive_validate])
 
     class Meta:

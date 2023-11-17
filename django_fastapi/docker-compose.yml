@@ -43,7 +43,7 @@ services:
 
   celery_beat:
     build: .
-    restart: always
+    restart: on-failure
     command: sh -c 'celery -A project beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler'
     environment:
       - POSTGRES_HOST=psql_db
