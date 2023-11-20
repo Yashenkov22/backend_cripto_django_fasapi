@@ -17,8 +17,6 @@ def try_create_direction(dict_for_parser: dict):
     else:
         exchange = Exchange.objects.get(name=dict_for_parser['name'])
         dict_for_exchange_direction['exchange_name'] = exchange
-        # print('check')
-        # print(dict_for_exchange_direction)
         ExchangeDirection.objects.create(**dict_for_exchange_direction)        
 
 
@@ -32,9 +30,12 @@ def try_update_direction(dict_for_parser: dict):
     except (TechServiceWork, NoFoundXmlElement, RobotCheckError) as ex:
         print('CATCH EXCEPTION', ex)
         pass
+    except Exception as ex:
+        print('TAKEN WRONG STRUCTURE XML ELEMENT', ex)
+        pass
     else:
-        exchange = Exchange.objects.get(name=dict_for_parser['name'])
-        dict_for_exchange_direction['exchange_name'] = exchange
+        exchange = Exchange.objects.get(name=dict_for_parser['name']) #?
+        dict_for_exchange_direction['exchange_name'] = exchange #?
         print('check')
         print(dict_for_exchange_direction)
         
@@ -44,7 +45,7 @@ def try_update_direction(dict_for_parser: dict):
                             valute_to=dict_for_exchange_direction['valute_to'],
                             )
         if not direction:
-            ExchangeDirection.objects.create(**dict_for_exchange_direction)
+            ExchangeDirection.objects.create(**dict_for_exchange_direction) #?
         else:
             direction.update(**dict_for_exchange_direction)
 
@@ -57,9 +58,6 @@ def update_diretions_for_exchange(exchange_name: str):
 
     if direction_list:
         for direct in direction_list:
-            # print(direct.__dict__)
             dict_for_parse = exchange.__dict__ | direct.__dict__
             dict_for_parse.pop('_state')
             try_update_direction.delay(dict_for_parse)
-            # print(dict_for_parse)
-        # print('INSIDE TASK!!!!')

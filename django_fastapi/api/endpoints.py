@@ -29,7 +29,36 @@ def get_current_direction_list(valute_from: str, valute_to: str):
         direction_list.append(direction)
 
     return direction_list
+
+
+@api_router.get('/available_directions')
+def get_available_valute(base: str):
+    base = base.upper()
+
+    if base == 'ALL':
+        queries = models.Direction.objects\
+                    .select_related('valute_from')\
+                    .distinct('valute_from__name').all()
+        valute_list = [valute.valute_from for valute in queries]
+    else:
+        queries = models.Direction.objects\
+                    .filter(valute_from=base)\
+                    .select_related('valute_to').all()   
+        valute_list = [valute.valute_to for valute in queries]
+
+    if not queries:
+        return []
     
+    default_dict_keys = {valute.type_valute for valute in valute_list}
+    
+    json_dict = defaultdict(list)
+    json_dict.fromkeys(default_dict_keys)
+
+    for valute in valute_list:
+        json_dict[valute.type_valute].append(schemas.NoCashValuteModel(**valute.__dict__))
+
+    return json_dict
+
 
 @api_router.get("/valute/no_cash")
 def get_valute_list():
