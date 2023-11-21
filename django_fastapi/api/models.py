@@ -22,6 +22,7 @@ class Exchange(models.Model):
                                             null=True,
                                             default=30,
                                             validators=[is_positive_validate])
+    direction_black_list = models.ManyToManyField('Direction', verbose_name='Чёрный список')
 
     class Meta:
         verbose_name = 'Обменник'
@@ -81,6 +82,7 @@ class Direction(models.Model):
         unique_together = (("valute_from", "valute_to"), )
         verbose_name = 'Направление для обмена'
         verbose_name_plural = 'Направления для обмена'
+        ordering = ['valute_from', 'valute_to']
     
     def __str__(self):
         return self.valute_from.code_name + ' -> ' + self.valute_to.code_name

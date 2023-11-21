@@ -4,7 +4,8 @@ from xml.etree import ElementTree as ET
 from .exc import NoFoundXmlElement, TechServiceWork, RobotCheckError
 
 
-def xml_parser(direction_dict: dict):
+def xml_parser(dict_for_parser: dict):
+        direction_dict = dict_for_parser.copy()
         valute_from = direction_dict.pop('valute_from_id')
         valute_to = direction_dict.pop('valute_to_id')
 

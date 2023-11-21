@@ -4,8 +4,9 @@ from django.dispatch import receiver
 from django_celery_beat.models import PeriodicTask
 
 from .models import Exchange, Direction, ExchangeDirection
-from .tasks import try_create_direction
-from .periodic_tasks import manage_periodic_task
+from .periodic_tasks import (manage_update_periodic_task,
+                             periodic_task_for_creation,
+                             periodic_task_for_black_list)
 
 
 
@@ -33,13 +34,13 @@ def delete_directions_to_exchanges(sender, instance, **kwargs):
 @receiver(post_save, sender=Exchange)
 def create_task_for_exchange(sender, instance, created, **kwargs):
     if created:
-        print('PERIODIC TASK CREATING...')
-        manage_periodic_task(instance.name, instance.period_for_update)
+        print('PERIODIC TASKS CREATING...')
+        periodic_task_for_creation(instance.name)
+        manage_update_periodic_task(instance.name, instance.period_for_update)
+        periodic_task_for_black_list(instance.name)
 
 
 #Signal to delete related periodic task for Exchange
 @receiver(post_delete, sender=Exchange)
 def delete_task_for_exchange(sender, instance, **kwargs):
-    PeriodicTask.objects.get(name=f'{instance.name} task').delete()
-    
-
+    PeriodicTask.objects.filter(name__startswith=f'{instance.name}').delete()

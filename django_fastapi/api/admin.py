@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.http.request import HttpRequest
 
 from api.models import Exchange, Direction, ExchangeDirection, NoCashValute
-from api.periodic_tasks import manage_periodic_task
+from api.periodic_tasks import manage_update_periodic_task
 
 
 class DirectionTabular(admin.StackedInline):
@@ -19,6 +19,7 @@ class DirectionTabular(admin.StackedInline):
 @admin.register(Exchange)
 class ExchangeAdmin(admin.ModelAdmin):
     list_display = ("name", "xml_url", "partner_link")
+    readonly_fields = ('direction_black_list', )
     inlines = [DirectionTabular]
 
     def save_model(self, request, obj, form, change):
@@ -35,7 +36,7 @@ class ExchangeAdmin(admin.ModelAdmin):
                 # print('value', value)
                 if value != form.initial[key]:
                     if key == 'period_for_update':
-                        manage_periodic_task(obj.name, value)
+                        manage_update_periodic_task(obj.name, value)
                         # print('PERIOD', form.initial[key])
                     update_fields.append(key)
 
