@@ -105,7 +105,7 @@ class ExchangeDirection(models.Model):
         unique_together = (("exchange_name", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange_name', 'valute_from']
+        ordering = ['exchange_name', 'valute_from', 'valute_to']
 
     def __str__(self):
         return f'{self.exchange_name} ({self.valute_from} -> {self.valute_to})'
