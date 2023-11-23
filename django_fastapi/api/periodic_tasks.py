@@ -37,7 +37,7 @@ def manage_update_periodic_task(exchange_name: str, period: int):
 
 def periodic_task_for_creation(exchange_name: str):
         schedule, _ = IntervalSchedule.objects.get_or_create(
-                            every=60,
+                            every=90,
                             period=IntervalSchedule.SECONDS
                         )
         PeriodicTask.objects.create(
@@ -50,8 +50,8 @@ def periodic_task_for_creation(exchange_name: str):
 
 def periodic_task_for_black_list(exchange_name: str):
         schedule, _ = IntervalSchedule.objects.get_or_create(
-                            every=300,
-                            period=IntervalSchedule.SECONDS
+                            every=1,
+                            period=IntervalSchedule.DAYS
                         )
         PeriodicTask.objects.create(
             interval=schedule,

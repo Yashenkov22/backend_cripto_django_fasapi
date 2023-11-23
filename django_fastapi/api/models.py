@@ -20,7 +20,8 @@ class Exchange(models.Model):
     period_for_update = models.IntegerField('Частота обновлений в секундах',
                                             blank=True,
                                             null=True,
-                                            default=30,
+                                            default=60,
+                                            help_text='Значение - положительное целое число.При установлении в 0, прекращает задачу переодические обновления',
                                             validators=[is_positive_validate])
     direction_black_list = models.ManyToManyField('Direction', verbose_name='Чёрный список')
 
