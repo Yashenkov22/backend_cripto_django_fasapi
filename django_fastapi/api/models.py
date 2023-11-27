@@ -1,9 +1,10 @@
 from django.db import models
-from django.core.exceptions import ValidationError
+# from django.core.exceptions import ValidationError
+from .utils.model_validators import is_positive_validate
 
-def is_positive_validate(value: int):
-    if value < 0:
-        raise ValidationError(f'Частота должна быть положительной, передано: {value}')
+# def is_positive_validate(value: int):
+#     if value < 0:
+#         raise ValidationError(f'Частота должна быть положительной, передано: {value}')
 
 
 class Exchange(models.Model):
@@ -17,11 +18,12 @@ class Exchange(models.Model):
                                     blank=True,
                                     null=True,
                                     default=None)
+    is_active = models.BooleanField('Статус обменника', default=True)
     period_for_update = models.IntegerField('Частота обновлений в секундах',
                                             blank=True,
                                             null=True,
                                             default=60,
-                                            help_text='Значение - положительное целое число.При установлении в 0, прекращает задачу переодические обновления',
+                                            help_text='Значение - положительное целое число.При установлении в 0, останавливает задачу переодических обновлений',
                                             validators=[is_positive_validate])
     direction_black_list = models.ManyToManyField('Direction', verbose_name='Чёрный список')
 
@@ -90,10 +92,10 @@ class Direction(models.Model):
 
 
 class ExchangeDirection(models.Model):
-    exchange_name = models.ForeignKey(Exchange,
-                                      on_delete=models.CASCADE,
-                                      verbose_name='Обменник',
-                                      related_name='directions')
+    exchange = models.ForeignKey(Exchange,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Обменник',
+                                 related_name='directions')
     valute_from = models.CharField('Отдаём', max_length=10)
     valute_to = models.CharField('Получаем', max_length=10)
     in_count = models.FloatField('Сколько отдаём')
@@ -102,10 +104,10 @@ class ExchangeDirection(models.Model):
     max_amount = models.CharField('Максимальное количество', max_length=50)
 
     class Meta:
-        unique_together = (("exchange_name", "valute_from", "valute_to"), )
+        unique_together = (("exchange", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange_name', 'valute_from', 'valute_to']
+        ordering = ['exchange', 'valute_from', 'valute_to']
 
     def __str__(self):
-        return f'{self.exchange_name} ({self.valute_from} -> {self.valute_to})'
+        return f'{self.exchange} ({self.valute_from} -> {self.valute_to})'

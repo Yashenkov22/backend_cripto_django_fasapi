@@ -15,18 +15,18 @@ def get_current_direction_list(valute_from: str, valute_to: str):
 
     queries = models.ExchangeDirection.objects\
             .filter(valute_from=valute_from,valute_to=valute_to)\
-            .select_related('exchange_name').all()
+            .select_related('exchange').filter(exchange__is_active=True).all()
     
     direction_list = []
     id_count = 1
 
     for query in queries:
-        if query.exchange_name.__dict__.get('partner_link'):
-            query.exchange_name.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
-        direction = query.__dict__ | query.exchange_name.__dict__
-        direction['id'] = id_count
+        if query.exchange.__dict__.get('partner_link'):
+            query.exchange.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
+        exchange_direction = query.__dict__ | query.exchange.__dict__
+        exchange_direction['id'] = id_count
         id_count += 1
-        direction_list.append(direction)
+        direction_list.append(exchange_direction)
 
     return direction_list
 
