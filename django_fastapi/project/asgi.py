@@ -13,7 +13,7 @@ from fastapi import FastAPI
 from fastapi.middleware.wsgi import WSGIMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
-from api.endpoints import api_router
+from no_cash.endpoints import api_router
 
 
 def get_application() -> FastAPI:

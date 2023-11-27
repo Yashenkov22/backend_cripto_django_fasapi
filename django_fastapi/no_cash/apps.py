@@ -1,9 +1,9 @@
 from django.apps import AppConfig
 
 
-class ApiConfig(AppConfig):
-    name = "api"
+class NoCashConfig(AppConfig):
+    name = "no_cash"
     verbose_name = 'Безналичные'
 
     def ready(self) -> None:
-        import api.signals
+        import no_cash.signals

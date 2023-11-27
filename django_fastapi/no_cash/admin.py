@@ -8,8 +8,8 @@ from django_celery_beat.models import (SolarSchedule,
                                        ClockedSchedule,
                                        CrontabSchedule)
 
-from api.models import Exchange, Direction, ExchangeDirection, NoCashValute
-from api.periodic_tasks import manage_periodic_task_for_update
+from no_cash.models import Exchange, Direction, ExchangeDirection, NoCashValute
+from no_cash.periodic_tasks import manage_periodic_task_for_update
 
 
 #DONT SHOW PERIODIC TASKS IN ADMIN PANEL
