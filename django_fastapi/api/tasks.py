@@ -2,8 +2,7 @@ from celery import shared_task
 
 from django.core.cache import cache
 
-from .exc import TechServiceWork, NoFoundXmlElement, RobotCheckError
-# from .services import xml_parser
+from .exc import NoFoundXmlElement
 from .utils.parsers import parse_xml
 from .utils.periodic_tasks import run_background_tasks, check_exchange_and_try_get_data
 from .models import Exchange, ExchangeDirection, Direction
@@ -12,19 +11,6 @@ from .models import Exchange, ExchangeDirection, Direction
 #PERIODIC CREATE
 @shared_task(name='create_directions_for_exchange')
 def create_directions_for_exchange(exchange_name: str):
-    # exchange = Exchange.objects.get(name=exchange_name)
-    
-    # try:
-    #     is_active, xml_file = check_for_tech_work(exchange.xml_url)
-    # except RobotCheckError as ex:
-    #     print('CATCH EXCEPTION', ex)
-    # except Exception as ex:
-    #     print('EXCEPTION!!!', ex)
-    # else:
-    #     if exchange.is_active != is_active:
-    #         exchange.is_active = is_active
-    #         print('CHANGE IS_ACTIVE')
-    #         exchange.save()
     data = check_exchange_and_try_get_data(exchange_name)
     if data is not None:
         exchange, is_active, xml_file = data
@@ -48,11 +34,6 @@ def create_directions_for_exchange(exchange_name: str):
             print('EXCHANGE DIRECTION', exchange_directions)
             print('BLACK LIST', exchange_black_list_directions)
             direction_list = set(all_directions) - set(exchange_directions) - set(exchange_black_list_directions)
-            # if direction_list:
-            #     print('RES')
-            #     print(direction_list)
-            # else:
-            #     print('ПУСТО')
 
             if direction_list:
                 run_background_tasks(create_direction,
@@ -75,9 +56,6 @@ def create_direction(dict_for_parse: dict,
         print('NOT FOUND DIRECTION', not_found_direction)
         Exchange.objects.get(name=dict_for_parse['name'])\
                         .direction_black_list.add(not_found_direction)
-    except (TechServiceWork, RobotCheckError) as ex:
-        print('CATCH EXCEPTION', ex)
-        pass
     except Exception as ex:
         print('PARSE FAILED', ex)
         pass
@@ -90,18 +68,6 @@ def create_direction(dict_for_parse: dict,
 #PERIODIC UPDATE
 @shared_task(name='update_diretions_for_exchange')
 def update_diretions_for_exchange(exchange_name: str):
-    # exchange = Exchange.objects.get(name=exchange_name)
-    # try:
-    #     is_active, xml_file = check_for_tech_work(exchange.xml_url)
-    # except RobotCheckError as ex:
-    #     print('CATCH EXCEPTION', ex)
-    # except Exception as ex:
-    #     print('EXCEPTION!!!', ex)
-    # else:
-    #     if exchange.is_active != is_active:
-    #         exchange.is_active = is_active
-    #         print('CHANGE IS_ACTIVE')
-    #         exchange.save()
     data = check_exchange_and_try_get_data(exchange_name)
     if data is not None:
         exchange, is_active, xml_file = data
@@ -122,9 +88,6 @@ def try_update_direction(dict_for_parse: dict, xml_file: str):
 
     try:
         dict_for_update_exchange_direction = parse_xml(dict_for_parse, xml_file)
-    # except (TechServiceWork, NoFoundXmlElement, RobotCheckError) as ex:
-    #     print('CATCH EXCEPTION', ex)
-    #     pass
     except NoFoundXmlElement as ex:
         print('CATCH EXCEPTION', ex)
         pass
@@ -147,18 +110,6 @@ def try_update_direction(dict_for_parse: dict, xml_file: str):
 #PERIODIC BLACK LIST
 @shared_task(name='try_create_directions_from_black_list')
 def try_create_directions_from_black_list(exchange_name: str):
-    # exchange = Exchange.objects.get(name=exchange_name)
-    # try:
-    #     is_active, xml_file = check_for_tech_work(exchange.xml_url)
-    # except RobotCheckError as ex:
-    #     print('CATCH EXCEPTION', ex)
-    # except Exception as ex:
-    #     print('EXCEPTION!!!', ex)
-    # else:
-    #     if exchange.is_active != is_active:
-    #         exchange.is_active = is_active
-    #         print('CHANGE IS_ACTIVE')
-    #         exchange.save()
     data = check_exchange_and_try_get_data(exchange_name)
     if data is not None:
         exchange, is_active, xml_file = data
@@ -181,7 +132,7 @@ def try_create_black_list_direction(dict_for_parse: dict,
 
     try:
         dict_for_exchange_direction = parse_xml(dict_for_parse, xml_file)
-    except (TechServiceWork, NoFoundXmlElement, RobotCheckError) as ex:
+    except NoFoundXmlElement as ex:
         print('CATCH EXCEPTION', ex)
         pass
     except Exception as ex:

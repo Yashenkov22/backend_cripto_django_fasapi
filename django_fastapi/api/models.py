@@ -1,10 +1,6 @@
 from django.db import models
-# from django.core.exceptions import ValidationError
-from .utils.model_validators import is_positive_validate
 
-# def is_positive_validate(value: int):
-#     if value < 0:
-#         raise ValidationError(f'Частота должна быть положительной, передано: {value}')
+from .utils.model_validators import is_positive_validate
 
 
 class Exchange(models.Model):

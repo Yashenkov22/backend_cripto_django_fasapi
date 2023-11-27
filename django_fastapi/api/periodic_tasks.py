@@ -4,14 +4,6 @@ from django_celery_beat.models import PeriodicTask, IntervalSchedule
 from .utils.periodic_tasks import get_or_create_schedule
 
 
-# def get_or_create_schedule_for_update(interval: int):
-#     schedule, _ = IntervalSchedule.objects.get_or_create(
-#                             every=interval,
-#                             period=IntervalSchedule.SECONDS
-#                         )
-#     return schedule
-
-
 def manage_periodic_task_for_update(exchange_name: str, interval: int):
     try:
         task = PeriodicTask.objects.get(name=f'{exchange_name} task update')
@@ -20,7 +12,6 @@ def manage_periodic_task_for_update(exchange_name: str, interval: int):
             print('PASS')
             pass
         else:
-            # schedule = get_or_create_schedule_for_update(interval)
             schedule = get_or_create_schedule(interval, IntervalSchedule.SECONDS)
             PeriodicTask.objects.create(
                     interval=schedule,
@@ -37,17 +28,12 @@ def manage_periodic_task_for_update(exchange_name: str, interval: int):
             task.enabled = False
         else:
             task.enabled = True
-            # schedule = get_or_create_schedule_for_update(interval)
             schedule = get_or_create_schedule(interval, IntervalSchedule.SECONDS)
             task.interval = schedule
         task.save()
 
 
 def periodic_task_for_creation(exchange_name: str):
-        # schedule, _ = IntervalSchedule.objects.get_or_create(
-        #                     every=90,
-        #                     period=IntervalSchedule.SECONDS
-        #                 )
         schedule = get_or_create_schedule(90, IntervalSchedule.SECONDS)
         PeriodicTask.objects.create(
             interval=schedule,
@@ -58,10 +44,6 @@ def periodic_task_for_creation(exchange_name: str):
 
 
 def periodic_task_for_black_list(exchange_name: str):
-        # schedule, _ = IntervalSchedule.objects.get_or_create(
-        #                     every=1,
-        #                     period=IntervalSchedule.DAYS
-        #                 )
         schedule = get_or_create_schedule(1, IntervalSchedule.DAYS)
         PeriodicTask.objects.create(
             interval=schedule,

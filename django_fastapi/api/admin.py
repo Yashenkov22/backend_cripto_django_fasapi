@@ -2,8 +2,22 @@ from typing import Any
 from django.contrib import admin
 from django.http.request import HttpRequest
 
+from django_celery_beat.models import (SolarSchedule,
+                                       PeriodicTask,
+                                       IntervalSchedule,
+                                       ClockedSchedule,
+                                       CrontabSchedule)
+
 from api.models import Exchange, Direction, ExchangeDirection, NoCashValute
 from api.periodic_tasks import manage_periodic_task_for_update
+
+
+#DONT SHOW PERIODIC TASKS IN ADMIN PANEL
+admin.site.unregister(SolarSchedule)
+admin.site.unregister(PeriodicTask)
+admin.site.unregister(IntervalSchedule)
+admin.site.unregister(ClockedSchedule)
+admin.site.unregister(CrontabSchedule)
 
 
 class ExchangeDirectionTabular(admin.StackedInline):
@@ -25,8 +39,6 @@ class ExchangeAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         update_fields = []
 
-        # True if something changed in model
-        # Note that change is False at the very first time
         if change: 
 
             for key, value in form.cleaned_data.items():
@@ -43,7 +55,6 @@ class ExchangeAdmin(admin.ModelAdmin):
             obj.save(update_fields=update_fields)
         else:
             print('NOT CHANGE!!!!')
-            # manage_periodic_task(obj.name, obj.period_for_update)
             return super().save_model(request, obj, form, change)
 
 
