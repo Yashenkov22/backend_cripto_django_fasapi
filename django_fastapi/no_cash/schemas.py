@@ -5,6 +5,8 @@ class NoCashValuteModel(BaseModel):
     name: str
     code_name: str
     type_valute: str
+    #
+    icon_url: str
 
 
 class CurrentDirection(BaseModel):
@@ -12,7 +14,9 @@ class CurrentDirection(BaseModel):
     name: str
     partner_link: str | None
     valute_from: str
+    icon_valute_from: str
     valute_to: str
+    icon_valute_to: str
     in_count: float
     out_count: float
     min_amount: str

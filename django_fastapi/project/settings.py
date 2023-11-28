@@ -13,9 +13,9 @@ LANGUAGE_CODE = 'ru'
 
 # TIME_ZONE = 'Europe/Moscow'
 
-ALLOWED_HOSTS = ['wttonline.ru']
+# ALLOWED_HOSTS = ['wttonline.ru']
 
-CSRF_TRUSTED_ORIGINS = ['https://wttonline.ru']
+# CSRF_TRUSTED_ORIGINS = ['https://wttonline.ru']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     "django_celery_beat",
-    "api",
+    "no_cash",
 ]
 
 MIDDLEWARE = [
@@ -57,16 +57,22 @@ TEMPLATES = [
     }
 ]
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        # "NAME": "test_api_db",
-        "NAME": DB_NAME,
+        "NAME": "test_api_db",
+        # "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASS,
         "HOST": DB_HOST,
         "PORT": DB_PORT,
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_holder'),
     }
 }
 
@@ -91,4 +97,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PROJECT_NAME = "django-fastapi-project"
 
-CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'
+# CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'

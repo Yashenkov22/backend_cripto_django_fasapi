@@ -4,7 +4,7 @@ import requests
 
 from bs4 import BeautifulSoup, NavigableString
 
-from api.models import Exchange, Rating
+from no_cash.models import Exchange, Rating
 
 
 class Command(BaseCommand):
