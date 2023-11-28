@@ -17,6 +17,9 @@ def get_current_direction_list(valute_from: str, valute_to: str):
             .filter(valute_from=valute_from,valute_to=valute_to)\
             .select_related('exchange').filter(exchange__is_active=True).all()
     
+    icon_valute_from = models.NoCashValute.objects.get(code_name=valute_from).icon_url
+    icon_valute_to = models.NoCashValute.objects.get(code_name=valute_to).icon_url
+
     direction_list = []
     id_count = 1
 
@@ -25,6 +28,8 @@ def get_current_direction_list(valute_from: str, valute_to: str):
             query.exchange.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
         exchange_direction = query.__dict__ | query.exchange.__dict__
         exchange_direction['id'] = id_count
+        exchange_direction['icon_valute_from'] = icon_valute_from
+        exchange_direction['icon_valute_to'] = icon_valute_to
         id_count += 1
         direction_list.append(exchange_direction)
 

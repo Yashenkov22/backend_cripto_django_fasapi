@@ -63,7 +63,7 @@ def create_direction(dict_for_parse: dict,
     else:
         exchange = Exchange.objects.get(name=dict_for_parse['name'])
         dict_for_create_exchange_direction['exchange'] = exchange
-        ExchangeDirection.objects.create(**dict_for_create_exchange_direction)        
+        ExchangeDirection.objects.create(**dict_for_create_exchange_direction)
 
 
 #PERIODIC UPDATE
