@@ -5,6 +5,8 @@ class NoCashValuteModel(BaseModel):
     name: str
     code_name: str
     type_valute: str
+    #
+    icon_url: str
 
 
 class CurrentDirection(BaseModel):

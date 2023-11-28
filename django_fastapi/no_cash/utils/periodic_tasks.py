@@ -1,3 +1,4 @@
+import re
 import requests
 
 from xml.etree import ElementTree as ET
@@ -30,15 +31,15 @@ def run_background_tasks(task: Proxy,
         task.delay(dict_for_parse, xml_file)
    
 
-def check_exchange_and_try_get_data(exchange_name: str):
+def check_exchange_and_try_get_data_for_parse(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
     try:
-        is_active, xml_file = check_for_tech_work(exchange.xml_url)
-    except RobotCheckError as ex:
-        print('CATCH EXCEPTION', ex)
-        return None
+        is_active, xml_file = check_for_active_and_try_get_xml(exchange.xml_url)
+    # except RobotCheckError as ex:
+    #     print('CATCH EXCEPTION', ex)
+    #     return None
     except Exception as ex:
-        print('EXCEPTION!!!', ex)
+        print('CHECK ACTIVE EXCEPTION!!!', ex)
         return None
     else:
         if exchange.is_active != is_active:
@@ -53,18 +54,19 @@ def check_exchange_and_try_get_data(exchange_name: str):
         )
     
     
-def check_for_tech_work(xml_url: str):
+def check_for_active_and_try_get_xml(xml_url: str):
     resp = requests.get(xml_url)
     headers = resp.headers
 
-    if headers['Content-Type'] != 'text/xml; charset=UTF-8':
+    # if headers['Content-Type'] != 'text/xml; charset=UTF-8':
+    if not re.match(r'^[a-zA-Z]+\/xml?', headers['Content-Type']):
         raise RobotCheckError(f'{xml_url} требует проверку на робота')
     else:
         xml_file = resp.text
         print(xml_url)
         root = ET.fromstring(xml_file)
-        error_text = root.text
-        is_active_status = True
-        if error_text == 'Техническое обслуживание':
-            is_active_status = False
-        return (is_active_status, xml_file)
+        # error_text = root.text
+        is_active = True
+        if root.text == 'Техническое обслуживание':
+            is_active = False
+        return (is_active, xml_file)

@@ -33,7 +33,7 @@ class ExchangeDirectionTabular(admin.StackedInline):
 @admin.register(Exchange)
 class ExchangeAdmin(admin.ModelAdmin):
     list_display = ("name", "xml_url", "partner_link", 'is_active')
-    readonly_fields = ('direction_black_list', )
+    readonly_fields = ('direction_black_list', 'is_active')
     inlines = [ExchangeDirectionTabular]
 
     def save_model(self, request, obj, form, change):
@@ -61,6 +61,7 @@ class ExchangeAdmin(admin.ModelAdmin):
 @admin.register(NoCashValute)
 class NoCashValuteAdmin(admin.ModelAdmin):
     list_display = ("name", "code_name", "type_valute")
+    # ordering = ['type_valute', 'name']
 
 
 @admin.register(Direction)

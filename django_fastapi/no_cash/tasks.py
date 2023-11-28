@@ -4,19 +4,20 @@ from django.core.cache import cache
 
 from .exc import NoFoundXmlElement
 from .utils.parsers import parse_xml
-from .utils.periodic_tasks import run_background_tasks, check_exchange_and_try_get_data
+from .utils.periodic_tasks import (run_background_tasks,
+                                   check_exchange_and_try_get_data_for_parse)
 from .models import Exchange, ExchangeDirection, Direction
 
 
 #PERIODIC CREATE
 @shared_task(name='create_directions_for_exchange')
 def create_directions_for_exchange(exchange_name: str):
-    data = check_exchange_and_try_get_data(exchange_name)
-    if data is not None:
-        exchange, is_active, xml_file = data
+    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange_name)
+    if data_for_parse is not None:
+        exchange, is_active, xml_file = data_for_parse
         if is_active:
-            all_directions = cache.get('all_directions')
             #CACHE
+            all_directions = cache.get('all_directions')
             if not all_directions:
                 all_directions = Direction.objects\
                                         .select_related('valute_from', 'valute_to')\
@@ -68,9 +69,9 @@ def create_direction(dict_for_parse: dict,
 #PERIODIC UPDATE
 @shared_task(name='update_diretions_for_exchange')
 def update_diretions_for_exchange(exchange_name: str):
-    data = check_exchange_and_try_get_data(exchange_name)
-    if data is not None:
-        exchange, is_active, xml_file = data
+    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange_name)
+    if data_for_parse is not None:
+        exchange, is_active, xml_file = data_for_parse
         if is_active:
             direction_list = exchange.directions.values_list('valute_from', 'valute_to').all()
 
@@ -82,7 +83,8 @@ def update_diretions_for_exchange(exchange_name: str):
 
 
 @shared_task
-def try_update_direction(dict_for_parse: dict, xml_file: str):
+def try_update_direction(dict_for_parse: dict,
+                         xml_file: str):
     print('*' * 10)
     print('inside task')
 
@@ -91,13 +93,12 @@ def try_update_direction(dict_for_parse: dict, xml_file: str):
     except NoFoundXmlElement as ex:
         print('CATCH EXCEPTION', ex)
         pass
-
     except Exception as ex:
         print('PARSE UPDATE FAILED', ex)
         pass
     else:
-        print('check')
-        print(dict_for_update_exchange_direction)
+        print('update')
+        # print(dict_for_update_exchange_direction)
         
         exchange_direction = ExchangeDirection.objects\
                             .filter(exchange=dict_for_parse['name'],
@@ -110,9 +111,9 @@ def try_update_direction(dict_for_parse: dict, xml_file: str):
 #PERIODIC BLACK LIST
 @shared_task(name='try_create_directions_from_black_list')
 def try_create_directions_from_black_list(exchange_name: str):
-    data = check_exchange_and_try_get_data(exchange_name)
-    if data is not None:
-        exchange, is_active, xml_file = data
+    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange_name)
+    if data_for_parse is not None:
+        exchange, is_active, xml_file = data_for_parse
         if is_active:
             black_list_directions = exchange.direction_black_list\
                                             .values_list('valute_from', 'valute_to').all()
@@ -136,7 +137,7 @@ def try_create_black_list_direction(dict_for_parse: dict,
         print('CATCH EXCEPTION', ex)
         pass
     except Exception as ex:
-        print('BLACK LIST PARSE FALIED', ex)
+        print('BLACK LIST PARSE FAILED', ex)
         pass
     else:
         exchange = Exchange.objects.get(name=dict_for_parse['name'])

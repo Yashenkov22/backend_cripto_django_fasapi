@@ -33,7 +33,7 @@ class Exchange(models.Model):
 
 
 class Rating(models.Model):
-    exchange_name = models.CharField(max_length=50, primary_key=True)
+    # exchange_name = models.CharField(max_length=50, primary_key=True)
     rating = models.CharField(max_length=50, null=True, default=None)
     exchange = models.ForeignKey(Exchange, on_delete=models.CASCADE)
 
@@ -55,11 +55,13 @@ class NoCashValute(models.Model):
     type_valute = models.CharField('Тип валюты',
                                    max_length=30,
                                    choices=type_list)
+    icon_url = models.CharField('Иконка валюты', max_length=255)
 
     class Meta:
         verbose_name = 'Безналичная валюта'
         verbose_name_plural = 'Безналичные валюты'
-        ordering = ['type_valute', 'name']
+        # ordering = ['type_valute', 'name']
+        ordering = ['code_name']
 
     def __str__(self):
         return self.code_name

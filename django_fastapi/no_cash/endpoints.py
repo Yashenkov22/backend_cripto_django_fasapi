@@ -38,6 +38,7 @@ def get_available_valute(base: str):
     if base == 'ALL':
         queries = models.Direction.objects\
                     .select_related('valute_from')\
+                    .order_by('valute_from__name')\
                     .distinct('valute_from__name').all()
         valute_list = [valute.valute_from for valute in queries]
     else:
@@ -64,7 +65,10 @@ def get_available_valute(base: str):
 def get_valute_list():
     list_valute = models.NoCashValute.objects.all()
 
-    list_type_valute = list_valute.values_list('type_valute').distinct('type_valute')
+    list_type_valute = list_valute.values_list('type_valute')\
+                                    .order_by('type_valute')\
+                                    .distinct('type_valute')
+    print(list_type_valute)
     default_dict_keys = tuple(map(lambda el: el[0], list_type_valute))
 
     json_dict = defaultdict(list)
