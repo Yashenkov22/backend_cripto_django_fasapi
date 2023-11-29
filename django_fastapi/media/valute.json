@@ -6,8 +6,8 @@
             "name": "Bitcoin",
             "code_name": "BTC",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -16,8 +16,8 @@
             "name": "Bitcoin Cash",
             "code_name": "BCH",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -26,8 +26,8 @@
             "name": "Ethereum",
             "code_name": "ETH",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -36,8 +36,8 @@
             "name": "Ethereum Classic",
             "code_name": "ETC",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -46,8 +46,8 @@
             "name": "Litecoin",
             "code_name": "LTC",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -56,8 +56,8 @@
             "name": "Ripple",
             "code_name": "XRP",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -66,8 +66,8 @@
             "name": "Monero",
             "code_name": "XMR",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -76,8 +76,8 @@
             "name": "Dogecoin",
             "code_name": "DOGE",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -86,8 +86,8 @@
             "name": "Dash",
             "code_name": "DASH",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -96,8 +96,8 @@
             "name": "Tether ERC20 USDT",
             "code_name": "USDTERC20",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -106,8 +106,8 @@
             "name": "Tether TRC20 USDT",
             "code_name": "USDTTRC20",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -116,8 +116,8 @@
             "name": "Tether BEP20 USDT",
             "code_name": "USDTBEP20",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -126,8 +126,8 @@
             "name": "TRON",
             "code_name": "TRX",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -136,8 +136,8 @@
             "name": "BinanceCoin BEP20 BNB",
             "code_name": "BNBBEP20",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -146,8 +146,8 @@
             "name": "Solana",
             "code_name": "SOL",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -156,8 +156,8 @@
             "name": "Toncoin",
             "code_name": "TON",
             "type_valute": "Криптовалюта",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -166,8 +166,8 @@
             "name": "WebMoney",
             "code_name": "WMZ",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -176,8 +176,8 @@
             "name": "Perfect Money USD",
             "code_name": "PMUSD",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -186,8 +186,8 @@
             "name": "ЮMoney RUB",
             "code_name": "YAMRUB",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -196,8 +196,8 @@
             "name": "QIWI RUB",
             "code_name": "QWRUB",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -206,8 +206,8 @@
             "name": "PayPal USD",
             "code_name": "PPUSD",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -216,8 +216,8 @@
             "name": "Advanced Cash USD",
             "code_name": "ADVCUSD",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -226,8 +226,8 @@
             "name": "Advanced Cash RUB",
             "code_name": "ADVCRUB",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -236,8 +236,8 @@
             "name": "Payeer USD",
             "code_name": "PRUSD",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -246,8 +246,8 @@
             "name": "Payeer RUB",
             "code_name": "PRRUB",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -256,8 +256,8 @@
             "name": "Skrill USD",
             "code_name": "SKLUSD",
             "type_valute": "Электронные деньги",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -266,8 +266,8 @@
             "name": "Exmo USD",
             "code_name": "EXMUSD",
             "type_valute": "Балансы криптобирж",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -276,8 +276,8 @@
             "name": "Binance RUB",
             "code_name": "BNACRUB",
             "type_valute": "Балансы криптобирж",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -286,8 +286,8 @@
             "name": "Сбербанк RUB",
             "code_name": "SBERRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -296,8 +296,8 @@
             "name": "Альфа-Банк RUB",
             "code_name": "ACRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -306,8 +306,8 @@
             "name": "Тинькофф RUB",
             "code_name": "TCSBRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -316,8 +316,8 @@
             "name": "ВТБ RUB",
             "code_name": "TBRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -326,8 +326,8 @@
             "name": "Приват 24 UAH",
             "code_name": "P24UAH",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -336,8 +336,8 @@
             "name": "Kaspi Bank KZT",
             "code_name": "KSPBKZT",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -346,8 +346,8 @@
             "name": "Visa/MasterCard USD",
             "code_name": "CARDUSD",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -356,8 +356,8 @@
             "name": "Visa/MasterCard RUB",
             "code_name": "CARDRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -366,8 +366,8 @@
             "name": "Visa/MasterCard UAH",
             "code_name": "CARDUAH",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -376,8 +376,8 @@
             "name": "Visa/MasterCard BYN",
             "code_name": "CARDBYN",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -386,8 +386,8 @@
             "name": "Visa/MasterCard KZT",
             "code_name": "CARDKZT",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -396,8 +396,8 @@
             "name": "Карта Мир RUB",
             "code_name": "MIRCRUB",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
     {
         "model": "no_cash.nocashvalute",
@@ -406,8 +406,8 @@
             "name": "WU USD",
             "code_name": "WUUSD",
             "type_valute": "Интернет-банкинг",
-            "icon_url" : "https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-        }
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     },
 
 

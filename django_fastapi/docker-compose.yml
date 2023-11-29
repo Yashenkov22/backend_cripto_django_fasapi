@@ -17,7 +17,7 @@ services:
       - rabbitmq3
     command: sh -c "python manage.py makemigrations &&
                     python manage.py migrate &&
-                    python manage.py loaddata valute.json &&
+                    python manage.py loaddata media/valute.json &&
                     python manage.py createsuperuser --no-input &&
                     uvicorn project.asgi:app --host 0.0.0.0"
                     # python manage.py create_rating &&

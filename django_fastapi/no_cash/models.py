@@ -55,7 +55,8 @@ class NoCashValute(models.Model):
     type_valute = models.CharField('Тип валюты',
                                    max_length=30,
                                    choices=type_list)
-    icon_url = models.CharField('Иконка валюты', max_length=255)
+    # icon_url = models.CharField('Иконка валюты', max_length=255)
+    icon_url = models.FileField('Иконка валюты', upload_to='icons/', null=True)
 
     class Meta:
         verbose_name = 'Безналичная валюта'

@@ -11,11 +11,14 @@ DEBUG = True
 
 LANGUAGE_CODE = 'ru'
 
+SITE_DOMAIN = 'wttonline.ru'
+# SITE_DOMAIN = '127.0.0.1:8000'
+
 # TIME_ZONE = 'Europe/Moscow'
 
-ALLOWED_HOSTS = ['wttonline.ru']
+ALLOWED_HOSTS = [SITE_DOMAIN]
 
-CSRF_TRUSTED_ORIGINS = ['https://wttonline.ru']
+CSRF_TRUSTED_ORIGINS = [f'https://{SITE_DOMAIN}']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -87,6 +90,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 STATIC_URL = "/django/static/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
