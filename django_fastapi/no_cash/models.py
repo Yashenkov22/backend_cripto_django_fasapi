@@ -7,7 +7,7 @@ class Exchange(models.Model):
     name = models.CharField('Название обменника',
                             max_length=20,
                             primary_key=True)
-    xml_url = models.CharField('Сслыка на XML файл',
+    xml_url = models.CharField('Ссылка на XML файл',
                                max_length=50)
     partner_link = models.CharField('Партнёрская ссылка',
                                     max_length=50,
@@ -39,7 +39,7 @@ class Rating(models.Model):
 
 
 class NoCashValute(models.Model):
-    type_list = [
+    type_valute_list = [
         ('Криптовалюта', 'Криптовалюта'),
         ('Электронные деньги', 'Электронные деньги'),
         ('Балансы криптобирж', 'Балансы криптобирж'),
@@ -54,7 +54,7 @@ class NoCashValute(models.Model):
                                  unique=True)
     type_valute = models.CharField('Тип валюты',
                                    max_length=30,
-                                   choices=type_list)
+                                   choices=type_valute_list)
     # icon_url = models.CharField('Иконка валюты', max_length=255)
     icon_url = models.FileField('Иконка валюты', upload_to='icons/', null=True)
 

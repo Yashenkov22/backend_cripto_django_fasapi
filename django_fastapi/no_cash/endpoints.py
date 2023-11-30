@@ -1,12 +1,10 @@
 from typing import List
 from collections import defaultdict
 
-from django.conf import settings
-
 from fastapi import APIRouter
 
 from . import models, schemas
-from .utils.endpoints import try_get_icon_url
+from .utils.endpoints import try_generate_icon_url
 
 
 api_router = APIRouter()
@@ -20,23 +18,21 @@ def get_current_direction_list(valute_from: str, valute_to: str):
             .filter(valute_from=valute_from,valute_to=valute_to)\
             .select_related('exchange').filter(exchange__is_active=True).all()
     
-    icon_valute_from = models.NoCashValute.objects.get(code_name=valute_from)
-    icon_url_valute_from = try_get_icon_url(icon_valute_from)
-    # icon_valute_from.icon_url = icon_url
-    icon_valute_to = models.NoCashValute.objects.get(code_name=valute_to)
-    icon_url_valute_to = try_get_icon_url(icon_valute_to)
+    valute_from_obj = models.NoCashValute.objects.get(code_name=valute_from)
+    icon_url_valute_from = try_generate_icon_url(valute_from_obj)
+
+    valute_to_obj = models.NoCashValute.objects.get(code_name=valute_to)
+    icon_url_valute_to = try_generate_icon_url(valute_to_obj)
 
     direction_list = []
-    id_count = 1
 
-    for query in queries:
+    for count, query in enumerate(queries, start=1):
         if query.exchange.__dict__.get('partner_link'):
             query.exchange.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
         exchange_direction = query.__dict__ | query.exchange.__dict__
-        exchange_direction['id'] = id_count
+        exchange_direction['id'] = count
         exchange_direction['icon_valute_from'] = icon_url_valute_from
         exchange_direction['icon_valute_to'] = icon_url_valute_to
-        id_count += 1
         direction_list.append(exchange_direction)
 
     return direction_list
@@ -67,7 +63,7 @@ def get_available_valute(base: str):
     json_dict.fromkeys(default_dict_keys)
 
     for valute in valute_list:
-        icon_url = try_get_icon_url(valute)
+        icon_url = try_generate_icon_url(valute)
         valute.icon_url = icon_url
         json_dict[valute.type_valute].append(schemas.NoCashValuteModel(**valute.__dict__))
 
@@ -76,24 +72,19 @@ def get_available_valute(base: str):
 
 @api_router.get("/valute/no_cash")
 def get_valute_list():
-    list_valute = models.NoCashValute.objects.all()
+    valute_list = models.NoCashValute.objects.all()
 
-    list_type_valute = list_valute.values_list('type_valute')\
+    type_valute_list = valute_list.values_list('type_valute')\
                                     .order_by('type_valute')\
                                     .distinct('type_valute')
     
-    default_dict_keys = tuple(map(lambda el: el[0], list_type_valute))
+    default_dict_keys = tuple(map(lambda el: el[0], type_valute_list))
 
     json_dict = defaultdict(list)
     json_dict.fromkeys(default_dict_keys)
 
-    for valute in list_valute:
-        # icon = None
-        # if valute.icon_url.name:
-        #     icon = valute.icon_url.url
-
-        # icon_url = None if not icon else settings.SITE_DOMAIN + '/django' + icon
-        icon_url = try_get_icon_url(valute)
+    for valute in valute_list:
+        icon_url = try_generate_icon_url(valute)
         valute.icon_url = icon_url
         json_dict[valute.type_valute].append(schemas.NoCashValuteModel(**valute.__dict__))
 

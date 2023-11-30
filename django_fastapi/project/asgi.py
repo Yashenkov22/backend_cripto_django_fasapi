@@ -25,8 +25,8 @@ def get_application() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-    app.include_router(api_router, prefix="/api")
-    app.mount("/django", WSGIMiddleware(get_wsgi_application()))
+    app.include_router(api_router, prefix=settings.FASTAPI_PREFIX)
+    app.mount(settings.DJANGO_PREFIX, WSGIMiddleware(get_wsgi_application()))
 
     return app
 
