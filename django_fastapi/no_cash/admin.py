@@ -1,4 +1,5 @@
 from typing import Any
+
 from django.contrib import admin
 from django.http.request import HttpRequest
 
@@ -8,7 +9,7 @@ from django_celery_beat.models import (SolarSchedule,
                                        ClockedSchedule,
                                        CrontabSchedule)
 
-from no_cash.models import Exchange, Direction, ExchangeDirection, NoCashValute
+from no_cash.models import Exchange, Direction, ExchangeDirection
 from no_cash.periodic_tasks import manage_periodic_task_for_update
 
 
@@ -58,10 +59,10 @@ class ExchangeAdmin(admin.ModelAdmin):
             return super().save_model(request, obj, form, change)
 
 
-@admin.register(NoCashValute)
-class NoCashValuteAdmin(admin.ModelAdmin):
-    list_display = ("name", "code_name", "type_valute")
-    # ordering = ['type_valute', 'name']
+# @admin.register(NoCashValute)
+# class NoCashValuteAdmin(admin.ModelAdmin):
+#     list_display = ("name", "code_name", "type_valute")
+#     # ordering = ['type_valute', 'name']
 
 
 @admin.register(Direction)

@@ -1,6 +1,6 @@
 [
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 1,
         "fields": {
             "name": "Bitcoin",
@@ -10,7 +10,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 2,
         "fields": {
             "name": "Bitcoin Cash",
@@ -20,7 +20,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 3,
         "fields": {
             "name": "Ethereum",
@@ -30,7 +30,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 4,
         "fields": {
             "name": "Ethereum Classic",
@@ -40,7 +40,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Litecoin",
@@ -50,7 +50,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Ripple",
@@ -60,7 +60,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Monero",
@@ -70,7 +70,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Dogecoin",
@@ -80,7 +80,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Dash",
@@ -90,7 +90,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Tether ERC20 USDT",
@@ -100,7 +100,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Tether TRC20 USDT",
@@ -110,7 +110,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Tether BEP20 USDT",
@@ -120,7 +120,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "TRON",
@@ -130,7 +130,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "BinanceCoin BEP20 BNB",
@@ -140,7 +140,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Solana",
@@ -150,7 +150,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Toncoin",
@@ -160,7 +160,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "WebMoney",
@@ -170,7 +170,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Perfect Money USD",
@@ -180,7 +180,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "ЮMoney RUB",
@@ -190,7 +190,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "QIWI RUB",
@@ -200,7 +200,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "PayPal USD",
@@ -210,7 +210,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Advanced Cash USD",
@@ -220,7 +220,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Advanced Cash RUB",
@@ -230,7 +230,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Payeer USD",
@@ -240,7 +240,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Payeer RUB",
@@ -250,7 +250,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Skrill USD",
@@ -260,7 +260,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Exmo USD",
@@ -270,7 +270,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Binance RUB",
@@ -280,7 +280,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Сбербанк RUB",
@@ -290,7 +290,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Альфа-Банк RUB",
@@ -300,7 +300,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Тинькофф RUB",
@@ -310,7 +310,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "ВТБ RUB",
@@ -320,7 +320,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Приват 24 UAH",
@@ -330,7 +330,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Kaspi Bank KZT",
@@ -340,7 +340,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Visa/MasterCard USD",
@@ -350,7 +350,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Visa/MasterCard RUB",
@@ -360,7 +360,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Visa/MasterCard UAH",
@@ -370,7 +370,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Visa/MasterCard BYN",
@@ -380,7 +380,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Visa/MasterCard KZT",
@@ -390,7 +390,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "Карта Мир RUB",
@@ -400,7 +400,7 @@
                 }
     },
     {
-        "model": "no_cash.nocashvalute",
+        "model": "general_models.valute",
         "pk": 5,
         "fields": {
             "name": "WU USD",
@@ -818,6 +818,136 @@
             "xml_url": "https://flashobmen.com/request-exportxml.xml",
             "partner_link": "https://flashobmen.com?"
         }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Transfer24",
+            "xml_url": "https://transfer24.pro/request-exportxml.xml",
+            "partner_link": "https://transfer24.pro?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Alfa-trades",
+            "xml_url": "https://alfa-trades.com/request-exportxml.xml",
+            "partner_link": "https://alfa-trades.com?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Btchange",
+            "xml_url": "https://btchange.ru/request-exportxml.xml",
+            "partner_link": "https://btchange.ru?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "cripthub",
+            "xml_url": "https://cripthub.ru/request-exportxml.xml",
+            "partner_link": "https://cripthub.ru?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "1-online",
+            "xml_url": "https://1-online.ru/request-exportxml.xml",
+            "partner_link": "https://1-online.ru?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "City-exchange",
+            "xml_url": "https://city-exchange.io/request-exportxml.xml",
+            "partner_link": "https://city-exchange.io?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Swiftchange",
+            "xml_url": "https://swiftchange.net/request-exportxml.xml",
+            "partner_link": "https://swiftchange.net?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Bitbong",
+            "xml_url": "https://bitbong.pro/request-exportxml.xml",
+            "partner_link": "https://bitbong.pro?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Obmenlite24",
+            "xml_url": "https://obmenlite24.ru/request-exportxml.xml",
+            "partner_link": "https://obmenlite24.ru?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Goldobmen",
+            "xml_url": "https://goldobmen.com/request-exportxml.xml",
+            "partner_link": "https://goldobmen.com?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "Allmoney",
+            "xml_url": "https://allmoney.market/request-exportxml.xml",
+            "partner_link": "https://allmoney.market?"
+        }
+    },
+    {
+        "model": "cash.exchange",
+        "pk": 1,
+        "fields": {
+            "name": "24expay",
+            "xml_url": "https://24expay.com/request-exportxml.xml",
+            "partner_link": "https://24expay.com?"
+        }
+    },
+
+
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Доллар",
+            "code_name": "CASHUSD",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Рубли",
+            "code_name": "CASHRUB",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
     }
 
 ]

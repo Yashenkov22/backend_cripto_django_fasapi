@@ -1,10 +1,10 @@
 from xml.etree import ElementTree as ET
 
-from no_cash.exc import NoFoundXmlElement
+from general_models.utils.exc import NoFoundXmlElement
 
 
-def parse_xml(dict_for_parser: dict,
-              xml_file: str):
+def no_cash_parse_xml(dict_for_parser: dict,
+                      xml_file: str):
         direction_dict = dict_for_parser.copy()
         valute_from = direction_dict.pop('valute_from_id')
         valute_to = direction_dict.pop('valute_to_id')

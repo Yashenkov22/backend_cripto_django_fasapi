@@ -21,13 +21,13 @@ def delete_directions_from_exchanges(sender, instance, **kwargs):
 @receiver(post_save, sender=Exchange)
 def create_tasks_for_exchange(sender, instance, created, **kwargs):
     if created:
-        print('NO CASH PERIODIC TASKS CREATING...')
+        print('CASH PERIODIC TASKS CREATING...')
         periodic_task_for_creation(instance.name)
         manage_periodic_task_for_update(instance.name, instance.period_for_update)
-        periodic_task_for_black_list(instance.name)
+        # periodic_task_for_black_list(instance.name)
 
 
 #Signal to delete related periodic task for Exchange
 @receiver(post_delete, sender=Exchange)
 def delete_task_for_exchange(sender, instance, **kwargs):
-    PeriodicTask.objects.filter(name__startswith=f'{instance.name} no_cash').delete()
+    PeriodicTask.objects.filter(name__startswith=f'{instance.name} cash').delete()

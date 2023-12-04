@@ -5,18 +5,18 @@ from general_models.utils.periodic_tasks import get_or_create_schedule
 
 
 def periodic_task_for_creation(exchange_name: str):
-        schedule = get_or_create_schedule(90, IntervalSchedule.SECONDS)
+        schedule = get_or_create_schedule(30, IntervalSchedule.SECONDS)
         PeriodicTask.objects.create(
             interval=schedule,
-            name=f'{exchange_name} no_cash task creation',
-            task='create_no_cash_directions_for_exchange',
+            name=f'{exchange_name} cash task creation',
+            task='create_cash_directions_for_exchange',
             args=json.dumps([exchange_name,]),
         )
 
 
 def manage_periodic_task_for_update(exchange_name: str, interval: int):
     try:
-        task = PeriodicTask.objects.get(name=f'{exchange_name} no_cash task update')
+        task = PeriodicTask.objects.get(name=f'{exchange_name} cash task update')
     except PeriodicTask.DoesNotExist:
         if interval == 0:
             print('PASS')
@@ -25,8 +25,8 @@ def manage_periodic_task_for_update(exchange_name: str, interval: int):
             schedule = get_or_create_schedule(interval, IntervalSchedule.SECONDS)
             PeriodicTask.objects.create(
                     interval=schedule,
-                    name=f'{exchange_name} no_cash task update',
-                    task='update_no_cash_diretions_for_exchange',
+                    name=f'{exchange_name} cash task update',
+                    task='update_cash_diretions_for_exchange',
                     args=json.dumps([exchange_name,]),
                     )
     else:
@@ -47,7 +47,7 @@ def periodic_task_for_black_list(exchange_name: str):
         schedule = get_or_create_schedule(1, IntervalSchedule.DAYS)
         PeriodicTask.objects.create(
             interval=schedule,
-            name=f'{exchange_name} no_cash task black list',
-            task='try_create_no_cash_directions_from_black_list',
+            name=f'{exchange_name} cash task black list',
+            task='try_create_cash_directions_from_black_list',
             args=json.dumps([exchange_name,]),
         )

@@ -3,8 +3,11 @@ from collections import defaultdict
 
 from fastapi import APIRouter
 
+from django.db.models import Q
+
+from general_models.models import Valute
+from general_models.utils.endpoints import try_generate_icon_url
 from . import models, schemas
-from .utils.endpoints import try_generate_icon_url
 
 
 api_router = APIRouter()
@@ -18,24 +21,26 @@ def get_current_direction_list(valute_from: str, valute_to: str):
             .filter(valute_from=valute_from,valute_to=valute_to)\
             .select_related('exchange').filter(exchange__is_active=True).all()
     
-    valute_from_obj = models.NoCashValute.objects.get(code_name=valute_from)
-    icon_url_valute_from = try_generate_icon_url(valute_from_obj)
+    #fix error in swagger
+    if queries:
+        valute_from_obj = Valute.objects.get(code_name=valute_from)
+        icon_url_valute_from = try_generate_icon_url(valute_from_obj)
 
-    valute_to_obj = models.NoCashValute.objects.get(code_name=valute_to)
-    icon_url_valute_to = try_generate_icon_url(valute_to_obj)
+        valute_to_obj = Valute.objects.get(code_name=valute_to)
+        icon_url_valute_to = try_generate_icon_url(valute_to_obj)
 
-    direction_list = []
+        direction_list = []
 
-    for count, query in enumerate(queries, start=1):
-        if query.exchange.__dict__.get('partner_link'):
-            query.exchange.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
-        exchange_direction = query.__dict__ | query.exchange.__dict__
-        exchange_direction['id'] = count
-        exchange_direction['icon_valute_from'] = icon_url_valute_from
-        exchange_direction['icon_valute_to'] = icon_url_valute_to
-        direction_list.append(exchange_direction)
+        for count, query in enumerate(queries, start=1):
+            if query.exchange.__dict__.get('partner_link'):
+                query.exchange.__dict__['partner_link'] += f'&cur_from={valute_from}&cur_to={valute_to}'
+            exchange_direction = query.__dict__ | query.exchange.__dict__
+            exchange_direction['id'] = count
+            exchange_direction['icon_valute_from'] = icon_url_valute_from
+            exchange_direction['icon_valute_to'] = icon_url_valute_to
+            direction_list.append(exchange_direction)
 
-    return direction_list
+        return direction_list
 
 
 @api_router.get('/available_directions')
@@ -72,7 +77,8 @@ def get_available_valute(base: str):
 
 @api_router.get("/valute/no_cash")
 def get_valute_list():
-    valute_list = models.NoCashValute.objects.all()
+    # valute_list = models.NoCashValute.objects.all()
+    valute_list = Valute.objects.filter(~Q(type_valute='Наличные')).all()
 
     type_valute_list = valute_list.values_list('type_valute')\
                                     .order_by('type_valute')\
