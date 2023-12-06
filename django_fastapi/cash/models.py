@@ -34,7 +34,8 @@ class City(models.Model):
 
     
 class Exchange(BaseExchange):
-    direction_black_list = models.ManyToManyField('BlackListElement', verbose_name='Чёрный список')
+    direction_black_list = models.ManyToManyField('BlackListElement',
+                                                  verbose_name='Чёрный список')
 
 
 class Direction(BaseDirection):
@@ -63,7 +64,7 @@ class ExchangeDirection(BaseExchangeDirection):
         unique_together = (("exchange", "city", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange', 'valute_from', 'valute_to']
+        ordering = ['exchange', 'city', 'valute_from', 'valute_to']
 
     def __str__(self):
         return f'{self.city}: {self.valute_from} -> {self.valute_to}'
@@ -76,9 +77,9 @@ class BlackListElement(models.Model):
 
     class Meta:
         verbose_name = 'Элемент чёрного списка'
-        verbose_name = 'Элементы чёрного списка'
+        verbose_name_plural = 'Элементы чёрного списка'
         unique_together = (("city",  "valute_from", "valute_to"), )
         ordering = ['city', 'valute_from', 'valute_to']
 
     def __str__(self):
-        return f'({self.city}): {self.valute_from} -> {self.valute_to}\n'
+        return f'({self.city}): {self.valute_from} -> {self.valute_to}\n\n'

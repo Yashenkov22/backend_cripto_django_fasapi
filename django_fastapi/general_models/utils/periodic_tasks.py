@@ -17,7 +17,7 @@ def get_or_create_schedule(interval: int, period: str):
     return schedule
    
 
-def check_exchange_and_try_get_data_for_parse(exchange: BaseExchange):
+def check_exchange_and_try_get_xml_file(exchange: BaseExchange):
     try:
         is_active, xml_file = check_for_active_and_try_get_xml(exchange.xml_url)
     except Exception as ex:
@@ -29,13 +29,14 @@ def check_exchange_and_try_get_data_for_parse(exchange: BaseExchange):
             print('CHANGE IS_ACTIVE')
             exchange.save()
         
-        return (
-            exchange,
-            is_active,
-            xml_file,
-        )
+        # return (
+        #     exchange,
+        #     is_active,
+        #     xml_file,
+        # )
+        return xml_file
     
-    
+
 def check_for_active_and_try_get_xml(xml_url: str):
     resp = requests.get(xml_url)
     headers = resp.headers

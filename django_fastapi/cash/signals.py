@@ -24,7 +24,7 @@ def create_tasks_for_exchange(sender, instance, created, **kwargs):
         print('CASH PERIODIC TASKS CREATING...')
         periodic_task_for_creation(instance.name)
         manage_periodic_task_for_update(instance.name, instance.period_for_update)
-        # periodic_task_for_black_list(instance.name)
+        periodic_task_for_black_list(instance.name)
 
 
 #Signal to delete related periodic task for Exchange

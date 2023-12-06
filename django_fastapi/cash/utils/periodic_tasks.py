@@ -7,16 +7,19 @@ from .parsers import check_city_in_xml_file
 def run_cash_background_tasks(task: Proxy,
                               exchange: CashExchange,
                               direction_dict: dict,
-                              xml_file: str):
+                              xml_file: str,
+                              black_list_parse=False):
     for city in direction_dict:
         if not check_city_in_xml_file(city, xml_file):
             print(f'Нет города {city} в {exchange.name}')
-            for valute_from, valute_to in direction_dict[city]:
-                black_list_element, _ = BlackListElement.objects\
-                                                        .get_or_create(city=city,
-                                                                       valute_from=valute_from,
-                                                                       valute_to=valute_to)
-                exchange.direction_black_list.add(black_list_element)
+            if not black_list_parse:
+                for valute_from, valute_to in direction_dict[city]:
+                    black_list_element, _ = BlackListElement\
+                                            .objects\
+                                            .get_or_create(city=city,
+                                                           valute_from=valute_from,
+                                                           valute_to=valute_to)
+                    exchange.direction_black_list.add(black_list_element)
         else:
             for direction in direction_dict[city]:
                 valute_from_id, valute_to_id = direction

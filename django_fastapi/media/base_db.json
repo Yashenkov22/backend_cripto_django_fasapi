@@ -929,6 +929,8 @@
     },
 
 
+    
+
     {
         "model": "general_models.valute",
         "pk": 1,
@@ -945,6 +947,56 @@
         "fields": {
             "name": "Рубли",
             "code_name": "CASHRUB",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Евро",
+            "code_name": "CASHEUR",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Дирхам",
+            "code_name": "CASHAED",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Тенге",
+            "code_name": "CASHKZT",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Польский злотый",
+            "code_name": "CASHPLN",
+            "type_valute": "Наличные",
+            "icon_url": "./icons/Bitcoin.svg"
+                }
+    },
+    {
+        "model": "general_models.valute",
+        "pk": 1,
+        "fields": {
+            "name": "Тайский бат",
+            "code_name": "CASHTHB",
             "type_valute": "Наличные",
             "icon_url": "./icons/Bitcoin.svg"
                 }

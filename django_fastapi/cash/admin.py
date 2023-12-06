@@ -3,6 +3,8 @@ from typing import Any
 from django.contrib import admin
 from django.http.request import HttpRequest
 
+from .periodic_tasks import manage_periodic_task_for_update
+
 from .models import Country, City, Exchange, Direction, ExchangeDirection
 
 
@@ -31,7 +33,8 @@ class CityAdmin(admin.ModelAdmin):
 
 
 class ExchangeDirectionTabular(admin.StackedInline):
-    model=ExchangeDirection
+    model = ExchangeDirection
+    ordering = ('city', 'valute_from', 'valute_to')
     
     def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
         return False
@@ -45,6 +48,28 @@ class ExchangeAdmin(admin.ModelAdmin):
     list_display = ("name", 'is_active')
     readonly_fields = ('is_active', 'direction_black_list')
     inlines =[ExchangeDirectionTabular]
+
+    def save_model(self, request, obj, form, change):
+        update_fields = []
+
+        if change: 
+
+            for key, value in form.cleaned_data.items():
+                # True if something changed in model
+                # print(obj.name)
+                # print('key', key)
+                # print('value', value)
+                if value != form.initial[key]:
+                    if key == 'period_for_update':
+                        manage_periodic_task_for_update(obj.name, value)
+                        # print('PERIOD', form.initial[key])
+
+                    update_fields.append(key)
+
+            obj.save(update_fields=update_fields)
+        else:
+            print('NOT CHANGE!!!!')
+            return super().save_model(request, obj, form, change)
     
 
 @admin.register(Direction)

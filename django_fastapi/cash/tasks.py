@@ -3,7 +3,7 @@ from celery import shared_task
 from django.core.cache import cache
 
 from general_models.utils.exc import NoFoundXmlElement
-from general_models.utils.periodic_tasks import check_exchange_and_try_get_data_for_parse
+from general_models.utils.periodic_tasks import check_exchange_and_try_get_xml_file
 from .utils.parsers import cash_parse_xml
 from .utils.periodic_tasks import run_cash_background_tasks, run_update_tasks
 
@@ -14,10 +14,10 @@ from .models import Exchange, ExchangeDirection, Direction, City, BlackListEleme
 @shared_task(name='create_cash_directions_for_exchange')
 def create_cash_directions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
-    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange)
-    if data_for_parse is not None:
-        exchange, is_active, xml_file = data_for_parse
-        if is_active:
+    xml_file = check_exchange_and_try_get_xml_file(exchange)
+    if xml_file is not None:
+        # exchange, is_active, xml_file = data_for_parse
+        if exchange.is_active:
             #CACHE
             all_cash_directions = cache.get('all_cash_directions')
             if not all_cash_directions:
@@ -79,19 +79,23 @@ def create_direction(dict_for_parse: dict,
         print('Получилось')
         exchange = Exchange.objects.get(name=dict_for_parse['name'])
         dict_for_create_exchange_direction['exchange'] = exchange
-        ExchangeDirection.objects.create(**dict_for_create_exchange_direction)
+        try:
+            ExchangeDirection.objects.create(**dict_for_create_exchange_direction)
+        except Exception:
+            pass
 
 
 #PERIODIC UPDATE
 @shared_task(name='update_cash_diretions_for_exchange')
 def update_cash_diretions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
-    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange)
-    if data_for_parse is not None:
-        exchange, is_active, xml_file = data_for_parse
-        if is_active:
+    xml_file = check_exchange_and_try_get_xml_file(exchange)
+    if xml_file is not None:
+        # exchange, is_active, xml_file = data_for_parse
+        if exchange.is_active:
             direction_list = exchange\
-                            .directions.values_list('city', 'valute_from', 'valute_to').all()
+                            .directions\
+                            .values_list('city', 'valute_from', 'valute_to').all()
 
             if direction_list:
                 run_update_tasks(try_update_direction,
@@ -131,18 +135,22 @@ def try_update_direction(dict_for_parse: dict,
 @shared_task(name='try_create_cash_directions_from_black_list')
 def try_create_cash_directions_from_black_list(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
-    data_for_parse = check_exchange_and_try_get_data_for_parse(exchange)
-    if data_for_parse is not None:
-        exchange, is_active, xml_file = data_for_parse
-        if is_active:
+    xml_file = check_exchange_and_try_get_xml_file(exchange)
+    if xml_file is not None:
+        # exchange, is_active, xml_file = data_for_parse
+        if exchange.is_active:
             black_list_directions = exchange.direction_black_list\
-                                            .values_list('valute_from', 'valute_to').all()
+                                            .values_list('city', 'valute_from', 'valute_to').all()
 
             if black_list_directions:
+                direction_dict = {}
+                for city, valute_from, valute_to in black_list_directions:
+                    direction_dict[city] = direction_dict.get(city, []) + [(valute_from, valute_to)]
                 run_cash_background_tasks(try_create_black_list_direction,
-                                     exchange,
-                                     black_list_directions,
-                                     xml_file)
+                                          exchange,
+                                          direction_dict,
+                                          xml_file,
+                                          black_list_parse=True)
 
 
 @shared_task
@@ -162,8 +170,13 @@ def try_create_black_list_direction(dict_for_parse: dict,
     else:
         exchange = Exchange.objects.get(name=dict_for_parse['name'])
         dict_for_exchange_direction['exchange'] = exchange
-        ExchangeDirection.objects.create(**dict_for_exchange_direction)
+        try:
+            ExchangeDirection.objects.create(**dict_for_exchange_direction)
 
-        direction = Direction.objects.get(valute_from=dict_for_exchange_direction['valute_from'],
-                                          valute_to=dict_for_exchange_direction['valute_to'])
-        exchange.direction_black_list.remove(direction)
+            black_list_element = BlackListElement.objects\
+                                                .get(city=dict_for_exchange_direction['city'],
+                                            valute_from=dict_for_exchange_direction['valute_from'],
+                                            valute_to=dict_for_exchange_direction['valute_to'])
+            exchange.direction_black_list.remove(black_list_element)
+        except Exception:
+            pass

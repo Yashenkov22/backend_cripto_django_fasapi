@@ -5,7 +5,7 @@ from general_models.utils.periodic_tasks import get_or_create_schedule
 
 
 def periodic_task_for_creation(exchange_name: str):
-        schedule = get_or_create_schedule(30, IntervalSchedule.SECONDS)
+        schedule = get_or_create_schedule(80, IntervalSchedule.SECONDS)
         PeriodicTask.objects.create(
             interval=schedule,
             name=f'{exchange_name} cash task creation',
