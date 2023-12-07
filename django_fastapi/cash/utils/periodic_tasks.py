@@ -19,7 +19,10 @@ def run_cash_background_tasks(task: Proxy,
                                             .get_or_create(city=city,
                                                            valute_from=valute_from,
                                                            valute_to=valute_to)
-                    exchange.direction_black_list.add(black_list_element)
+                    try:
+                        exchange.direction_black_list.add(black_list_element)
+                    except Exception:
+                        pass
         else:
             for direction in direction_dict[city]:
                 valute_from_id, valute_to_id = direction

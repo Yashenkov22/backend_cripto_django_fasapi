@@ -3,22 +3,8 @@ from typing import Any
 from django.contrib import admin
 from django.http.request import HttpRequest
 
-from django_celery_beat.models import (SolarSchedule,
-                                       PeriodicTask,
-                                       IntervalSchedule,
-                                       ClockedSchedule,
-                                       CrontabSchedule)
-
 from no_cash.models import Exchange, Direction, ExchangeDirection
 from no_cash.periodic_tasks import manage_periodic_task_for_update
-
-
-#DONT SHOW PERIODIC TASKS IN ADMIN PANEL
-admin.site.unregister(SolarSchedule)
-admin.site.unregister(PeriodicTask)
-admin.site.unregister(IntervalSchedule)
-admin.site.unregister(ClockedSchedule)
-admin.site.unregister(CrontabSchedule)
 
 
 class ExchangeDirectionTabular(admin.StackedInline):
@@ -41,9 +27,7 @@ class ExchangeAdmin(admin.ModelAdmin):
         update_fields = []
 
         if change: 
-
             for key, value in form.cleaned_data.items():
-                # True if something changed in model
                 # print(obj.name)
                 # print('key', key)
                 # print('value', value)
@@ -57,12 +41,6 @@ class ExchangeAdmin(admin.ModelAdmin):
         else:
             print('NOT CHANGE!!!!')
             return super().save_model(request, obj, form, change)
-
-
-# @admin.register(NoCashValute)
-# class NoCashValuteAdmin(admin.ModelAdmin):
-#     list_display = ("name", "code_name", "type_valute")
-#     # ordering = ['type_valute', 'name']
 
 
 @admin.register(Direction)

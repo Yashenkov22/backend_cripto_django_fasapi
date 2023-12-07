@@ -29,11 +29,6 @@ def check_exchange_and_try_get_xml_file(exchange: BaseExchange):
             print('CHANGE IS_ACTIVE')
             exchange.save()
         
-        # return (
-        #     exchange,
-        #     is_active,
-        #     xml_file,
-        # )
         return xml_file
     
 

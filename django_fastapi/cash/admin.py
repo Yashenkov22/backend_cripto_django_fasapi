@@ -26,7 +26,6 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ('name', 'code_name', 'country', 'is_parse')
     list_editable = ('is_parse', )
     list_select_related = ('country', )
-    # readonly_fields = ('name', 'code_name', 'country')
     ordering = ('-is_parse', 'name')
     search_fields = ('name', 'country__name')
     list_per_page = 20
@@ -53,9 +52,7 @@ class ExchangeAdmin(admin.ModelAdmin):
         update_fields = []
 
         if change: 
-
             for key, value in form.cleaned_data.items():
-                # True if something changed in model
                 # print(obj.name)
                 # print('key', key)
                 # print('value', value)

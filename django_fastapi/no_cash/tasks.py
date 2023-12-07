@@ -13,15 +13,12 @@ from .models import Exchange, ExchangeDirection, Direction
 @shared_task(name='create_no_cash_directions_for_exchange')
 def create_no_cash_directions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
-    # data_for_parse = check_exchange_and_try_get_data_for_parse(exchange)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
-    # if data_for_parse is not None:
+    
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
-        # if is_active:
         if exchange.is_active:
             #CACHE
-            all_no_cash_directions = cache.get('all_directions')
+            all_no_cash_directions = cache.get('all_no_cash_directions')
             if not all_no_cash_directions:
                 all_no_cash_directions = Direction.objects\
                                         .select_related('valute_from', 'valute_to')\
@@ -77,13 +74,9 @@ def create_direction(dict_for_parse: dict,
 @shared_task(name='update_no_cash_diretions_for_exchange')
 def update_no_cash_diretions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
-    # data_for_parse = check_exchange_and_try_get_data_for_parse(exchange)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
 
-    # if data_for_parse is not None:
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
-        # if is_active:
         if exchange.is_active:
             direction_list = exchange.directions.values_list('valute_from', 'valute_to').all()
 
@@ -125,8 +118,8 @@ def try_update_direction(dict_for_parse: dict,
 def try_create_no_cash_directions_from_black_list(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
+    
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
         if exchange.is_active:
             black_list_directions = exchange.direction_black_list\
                                             .values_list('valute_from', 'valute_to').all()

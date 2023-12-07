@@ -15,8 +15,8 @@ from .models import Exchange, ExchangeDirection, Direction, City, BlackListEleme
 def create_cash_directions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
+    
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
         if exchange.is_active:
             #CACHE
             all_cash_directions = cache.get('all_cash_directions')
@@ -90,8 +90,8 @@ def create_direction(dict_for_parse: dict,
 def update_cash_diretions_for_exchange(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
+
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
         if exchange.is_active:
             direction_list = exchange\
                             .directions\
@@ -136,8 +136,8 @@ def try_update_direction(dict_for_parse: dict,
 def try_create_cash_directions_from_black_list(exchange_name: str):
     exchange = Exchange.objects.get(name=exchange_name)
     xml_file = check_exchange_and_try_get_xml_file(exchange)
+
     if xml_file is not None:
-        # exchange, is_active, xml_file = data_for_parse
         if exchange.is_active:
             black_list_directions = exchange.direction_black_list\
                                             .values_list('city', 'valute_from', 'valute_to').all()
