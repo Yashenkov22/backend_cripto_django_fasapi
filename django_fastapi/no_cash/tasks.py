@@ -94,9 +94,22 @@ def try_update_direction(dict_for_parse: dict,
     print('inside task')
 
     try:
+        ####
+        exchange_direction = ExchangeDirection.objects\
+                            .filter(exchange=dict_for_parse['name'],
+                            valute_from=dict_for_parse['valute_from_id'],
+                            valute_to=dict_for_parse['valute_to_id'],
+                            )
+        ####
         dict_for_update_exchange_direction = no_cash_parse_xml(dict_for_parse, xml_file)
     except NoFoundXmlElement as ex:
         print('CATCH EXCEPTION', ex)
+        ####
+        # exchange_direction.delete()
+        if exchange_direction[0].is_active:
+            exchange_direction[0].is_active = False
+            exchange_direction[0].save()
+        ####
         pass
     except Exception as ex:
         print('PARSE UPDATE FAILED', ex)
@@ -104,12 +117,12 @@ def try_update_direction(dict_for_parse: dict,
     else:
         print('update')
         # print(dict_for_update_exchange_direction)
-        
-        exchange_direction = ExchangeDirection.objects\
-                            .filter(exchange=dict_for_parse['name'],
-                            valute_from=dict_for_update_exchange_direction['valute_from'],
-                            valute_to=dict_for_update_exchange_direction['valute_to'],
-                            )
+        exchange_direction[0].is_active = True
+        # exchange_direction = ExchangeDirection.objects\
+        #                     .filter(exchange=dict_for_parse['name'],
+        #                     valute_from=dict_for_update_exchange_direction['valute_from'],
+        #                     valute_to=dict_for_update_exchange_direction['valute_to'],
+        #                     )
         exchange_direction.update(**dict_for_update_exchange_direction)
 
 

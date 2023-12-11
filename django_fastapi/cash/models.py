@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from general_models.models import BaseExchangeDirection, Valute, BaseExchange, BaseDirection
 
@@ -49,6 +50,12 @@ class Direction(BaseDirection):
                                   on_delete=models.CASCADE,
                                   verbose_name='Получаем',
                                   related_name='cash_valutes_to')
+    
+    def clean(self) -> None:
+        if self.valute_from == self.valute_to:
+            raise ValidationError('Значения "Отдаём" и "Получаем" должны быть разные')
+        if self.valute_from.type_valute == self.valute_to.type_valute:
+            raise ValidationError('Значения "Отдаём" и "Получаем" должны иметь разные типы валют')
 
 
 class ExchangeDirection(BaseExchangeDirection):
@@ -64,7 +71,7 @@ class ExchangeDirection(BaseExchangeDirection):
         unique_together = (("exchange", "city", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange', 'city', 'valute_from', 'valute_to']
+        ordering = ['-is_active', 'exchange', 'city', 'valute_from', 'valute_to']
 
     def __str__(self):
         return f'{self.city}: {self.valute_from} -> {self.valute_to}'

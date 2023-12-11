@@ -1,6 +1,6 @@
 from django.db import models
-
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 from general_models.models import Valute, BaseExchange, BaseDirection, BaseExchangeDirection
 
@@ -28,6 +28,10 @@ class Direction(BaseDirection):
                                   verbose_name='Получаем',
                                   limit_choices_to=~Q(type_valute='Наличные'),
                                   related_name='no_cash_valutes_to')
+    
+    def clean(self) -> None:
+        if self.valute_from == self.valute_to:
+            raise ValidationError('Валюты "Отдаём" и "Получаем" должны быть разные')
 
 
 class ExchangeDirection(BaseExchangeDirection):
@@ -40,7 +44,7 @@ class ExchangeDirection(BaseExchangeDirection):
         unique_together = (("exchange", "valute_from", "valute_to"), )
         verbose_name = 'Готовое направление'
         verbose_name_plural = 'Готовые направления'
-        ordering = ['exchange', 'valute_from', 'valute_to']
+        ordering = ['-is_active', 'exchange', 'valute_from', 'valute_to']
 
     def __str__(self):
         return f'{self.exchange}:  {self.valute_from} -> {self.valute_to}'

@@ -73,6 +73,7 @@ class ExchangeAdmin(admin.ModelAdmin):
 class DirectionAdmin(admin.ModelAdmin):
     list_display = ('get_direction_name', )
     list_select_related = ('valute_from', 'valute_to')
+    search_fields = ('valute_from__code_name', 'valute_to__code_name')
 
     def get_direction_name(self, obj):
         return f'{obj.valute_from} -> {obj.valute_to}'

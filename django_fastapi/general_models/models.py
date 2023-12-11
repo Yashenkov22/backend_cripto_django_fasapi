@@ -95,6 +95,7 @@ class BaseExchangeDirection(models.Model):
     out_count = models.FloatField('Сколько получаем')
     min_amount = models.CharField('Минимальное количество', max_length=50)
     max_amount = models.CharField('Максимальное количество', max_length=50)
+    is_active = models.BooleanField('Активно?', default=True)
 
     class Meta:
         abstract = True

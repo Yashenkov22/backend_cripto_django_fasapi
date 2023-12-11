@@ -9,6 +9,7 @@ from no_cash.periodic_tasks import manage_periodic_task_for_update
 
 class ExchangeDirectionTabular(admin.StackedInline):
     model=ExchangeDirection
+    # readonly_fields = ('is_active', )
     
     def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
         return False
@@ -19,7 +20,7 @@ class ExchangeDirectionTabular(admin.StackedInline):
 
 @admin.register(Exchange)
 class ExchangeAdmin(admin.ModelAdmin):
-    list_display = ("name", "xml_url", "partner_link", 'is_active')
+    list_display = ("name", "xml_url", 'is_active')
     readonly_fields = ('direction_black_list', 'is_active')
     inlines = [ExchangeDirectionTabular]
 
