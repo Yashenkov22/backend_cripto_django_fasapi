@@ -18,8 +18,11 @@ def get_current_direction_list(valute_from: str, valute_to: str):
     valute_from, valute_to = valute_from.upper(), valute_to.upper()
 
     queries = models.ExchangeDirection.objects\
-            .filter(valute_from=valute_from,valute_to=valute_to)\
-            .select_related('exchange').filter(exchange__is_active=True).all()
+                    .filter(valute_from=valute_from,
+                            valute_to=valute_to,
+                            is_active=True)\
+                    .select_related('exchange')\
+                    .filter(exchange__is_active=True).all()
     
     #fix error in swagger
     if queries:

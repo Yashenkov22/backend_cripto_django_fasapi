@@ -33,7 +33,7 @@ def check_exchange_and_try_get_xml_file(exchange: BaseExchange):
     
 
 def check_for_active_and_try_get_xml(xml_url: str):
-    resp = requests.get(xml_url)
+    resp = requests.get(xml_url, timeout=5)
     headers = resp.headers
 
     if not re.match(r'^[a-zA-Z]+\/xml?', headers['Content-Type']):

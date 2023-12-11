@@ -11,7 +11,7 @@ services:
       - ./.env
     container_name: django_fastapi
     ports:
-      - '8000:8000'
+      - '80:8000'
     depends_on:
       - psql_db
       - rabbitmq3
@@ -33,7 +33,7 @@ services:
 
   celery_worker:
     build: .
-    command: sh -c 'celery -A project worker -l info -c 20 -O fair'
+    command: sh -c 'celery -A project worker -l info -c 20 -Ofair'
     environment:
       - POSTGRES_HOST=psql_db
     env_file:
