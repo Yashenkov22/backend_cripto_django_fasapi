@@ -13,12 +13,12 @@ LANGUAGE_CODE = 'ru'
 
 # TIME_ZONE = 'Europe/Moscow'
 
-# SITE_DOMAIN = 'wttonline.ru'
-SITE_DOMAIN = '127.0.0.1:8000'
+SITE_DOMAIN = 'wttonline.ru'
+# SITE_DOMAIN = '127.0.0.1:8000'
 
-# ALLOWED_HOSTS = [SITE_DOMAIN]
+ALLOWED_HOSTS = [SITE_DOMAIN]
 
-# CSRF_TRUSTED_ORIGINS = [f'https://{SITE_DOMAIN}']
+CSRF_TRUSTED_ORIGINS = [f'https://{SITE_DOMAIN}']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -65,8 +65,8 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "test_api_db",
-        # "NAME": DB_NAME,
+        # "NAME": "test_api_db",
+        "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASS,
         "HOST": DB_HOST,
@@ -105,7 +105,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PROJECT_NAME = "django-fastapi-project"
 
-# CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'
+CELERY_BROKER_URL='amqp://guest:guest@rabbitmq3:5672/'
 
 FASTAPI_PREFIX = "/api"
 DJANGO_PREFIX = "/django"

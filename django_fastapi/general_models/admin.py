@@ -32,6 +32,6 @@ class ValuteAdmin(admin.ModelAdmin):
 
     def get_icon(self, obj):
         if obj.icon_url:
-            return mark_safe(f"<img src='http://{settings.SITE_DOMAIN}{settings.DJANGO_PREFIX}{obj.icon_url.url}' width=40")
+            return mark_safe(f"<img src='https://{settings.SITE_DOMAIN}{settings.DJANGO_PREFIX}{obj.icon_url.url}' width=40")
         
     get_icon.short_description = 'Текущая иконка'
