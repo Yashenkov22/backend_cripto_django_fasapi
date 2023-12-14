@@ -49,7 +49,7 @@ def create_cash_directions_for_exchange(exchange_name: str):
                 direction_dict = {}
                 for city, valute_from, valute_to in direction_list:
                     direction_dict[city] = direction_dict.get(city, []) + [(valute_from, valute_to)]
-                print(direction_dict)
+                # print(direction_dict)
                 run_cash_background_tasks(create_direction,
                                           exchange,
                                           direction_dict,
@@ -124,9 +124,10 @@ def try_update_direction(dict_for_parse: dict,
         print('CATCH EXCEPTION', ex)
         ####
         # exchange_direction.delete()
-        if exchange_direction[0].is_active:
-            exchange_direction[0].is_active = False
-            exchange_direction[0].save()
+        # if exchange_direction[0].is_active:
+        #     exchange_direction[0].is_active = False
+        #     exchange_direction[0].save()
+        exchange_direction.update(is_active=False)
         ####
         pass
     except Exception as ex:
@@ -135,7 +136,8 @@ def try_update_direction(dict_for_parse: dict,
     else:
         print('update')
         # print(dict_for_update_exchange_direction)
-        exchange_direction[0].is_active = True
+        dict_for_update_exchange_direction['is_active'] = True
+        # exchange_direction[0].is_active = True
         # exchange_direction = ExchangeDirection.objects\
         #                     .filter(exchange=dict_for_parse['name'],
         #                     city=dict_for_parse['city'],

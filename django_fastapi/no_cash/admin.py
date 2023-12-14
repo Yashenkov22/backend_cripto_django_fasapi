@@ -1,28 +1,47 @@
-from typing import Any
-
 from django.contrib import admin
-from django.http.request import HttpRequest
 
-from no_cash.models import Exchange, Direction, ExchangeDirection
-from no_cash.periodic_tasks import manage_periodic_task_for_update
+from no_cash.models import Exchange, Direction, ExchangeDirection, Review, Comment
+from no_cash.periodic_tasks import (manage_periodic_task_for_create,
+                                    manage_periodic_task_for_update,
+                                    manage_periodic_task_for_parse_black_list)
+
+from general_models.utils.admin import ReviewAdminMixin
+from general_models.admin import (BaseCommentAdmin,
+                                  BaseCommentStacked,
+                                  BaseReviewAdmin,
+                                  BaseReviewStacked,
+                                  BaseExchangeDirectionAdmin,
+                                  BaseExchangeDirectionStacked,
+                                  BaseDirectionAdmin)
 
 
-class ExchangeDirectionTabular(admin.StackedInline):
-    model=ExchangeDirection
-    # readonly_fields = ('is_active', )
-    
-    def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
-        return False
-    
-    def has_add_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
-        return False
+@admin.register(Comment)
+class CommentAdmin(BaseCommentAdmin):
+    pass
+
+
+class CommentStacked(BaseCommentStacked):
+    model = Comment
+
+
+@admin.register(Review)
+class ReviewAdmin(BaseReviewAdmin):
+    inlines = [CommentStacked]
+
+
+class ReviewStacked(BaseReviewStacked):
+    model = Review
+
+
+class ExchangeDirectionStacked(BaseExchangeDirectionStacked):
+    model = ExchangeDirection
 
 
 @admin.register(Exchange)
-class ExchangeAdmin(admin.ModelAdmin):
+class ExchangeAdmin(ReviewAdminMixin, admin.ModelAdmin):
     list_display = ("name", "xml_url", 'is_active')
     readonly_fields = ('direction_black_list', 'is_active')
-    inlines = [ExchangeDirectionTabular]
+    inlines = [ExchangeDirectionStacked, ReviewStacked]
 
     def save_model(self, request, obj, form, change):
         update_fields = []
@@ -33,11 +52,18 @@ class ExchangeAdmin(admin.ModelAdmin):
                 # print('key', key)
                 # print('value', value)
                 if value != form.initial[key]:
-                    if key == 'period_for_update':
-                        manage_periodic_task_for_update(obj.name, value)
-                        # print('PERIOD', form.initial[key])
+                    # if key == 'period_for_update':
+                    #     manage_periodic_task_for_update(obj.name, value)
+                    #     # print('PERIOD', form.initial[key])
+                    # update_fields.append(key)
+                    match key:
+                        case 'period_for_create':
+                            manage_periodic_task_for_create(obj.name, value)
+                        case 'period_for_update':
+                            manage_periodic_task_for_update(obj.name, value)
+                        case 'period_for_parse_black_list':
+                            manage_periodic_task_for_parse_black_list(obj.name, value)
                     update_fields.append(key)
-
             obj.save(update_fields=update_fields)
         else:
             print('NOT CHANGE!!!!')
@@ -45,26 +71,11 @@ class ExchangeAdmin(admin.ModelAdmin):
 
 
 @admin.register(Direction)
-class DirectionAdmin(admin.ModelAdmin):
-    list_display = ("get_direction_name", )
-    ordering = ('valute_from', 'valute_to')
-
-    def has_change_permission(self, request, obj = None):
-        return False
-
-    def get_direction_name(self, obj):
-        return f'{obj.valute_from} -> {obj.valute_to}'
+class DirectionAdmin(BaseDirectionAdmin):
+    pass
 
 
 @admin.register(ExchangeDirection)
-class ExchangeDirectionAdmin(admin.ModelAdmin):
-    list_display = ("get_display_name", )
-
-    def has_change_permission(self, request, obj = None):
-        return False
-    
-    def has_add_permission(self, request, obj = None):
-        return False
-
+class ExchangeDirectionAdmin(BaseExchangeDirectionAdmin):
     def get_display_name(self, obj):
         return f'{obj.exchange} ({obj.valute_from} -> {obj.valute_to})'

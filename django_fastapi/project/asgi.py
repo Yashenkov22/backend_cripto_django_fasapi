@@ -13,7 +13,7 @@ from fastapi import FastAPI
 from fastapi.middleware.wsgi import WSGIMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
-from no_cash.endpoints import api_router
+from no_cash.endpoints import api_router, no_cash_router
 
 
 def get_application() -> FastAPI:
@@ -25,6 +25,7 @@ def get_application() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    api_router.include_router(no_cash_router)
     app.include_router(api_router, prefix=settings.FASTAPI_PREFIX)
     app.mount(settings.DJANGO_PREFIX, WSGIMiddleware(get_wsgi_application()))
 

@@ -9,6 +9,15 @@ class NoCashValuteModel(BaseModel):
     icon_url: str | None
 
 
+class NewNoCashValute(BaseModel):
+    id: int
+    name: str
+    code_name: str
+    # type_valute: str
+    #
+    icon_url: str | None
+
+
 class CurrentDirection(BaseModel):
     id: int
     name: str

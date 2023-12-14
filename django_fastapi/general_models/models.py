@@ -22,7 +22,10 @@ class Valute(models.Model):
     type_valute = models.CharField('Тип валюты',
                                    max_length=30,
                                    choices=type_valute_list)
-    icon_url = models.FileField('Иконка валюты', upload_to='icons/',blank=True, null=True)
+    icon_url = models.FileField('Иконка валюты',
+                                upload_to='icons/',
+                                blank=True,
+                                null=True)
 
     class Meta:
         verbose_name = 'Валюта'
@@ -31,6 +34,39 @@ class Valute(models.Model):
 
     def __str__(self):
         return self.code_name
+
+
+class BaseReview(models.Model):
+    status_list = [
+    ('Опубликован', 'Опубликован'),
+    ('Модерация', 'Модерация'),
+    ('Отклонён', 'Отклонён'),
+    ]
+    username = models.CharField('Имя пользователя',
+                                max_length=255)
+    text = models.TextField('Текст сообщения')
+    time_create = models.DateTimeField('Дата создания',
+                                       default=None,
+                                       blank=True,
+                                       null=True,
+                                       help_text='Если оставить поля пустыми, время установится автоматически по московскому часовому поясу')
+    status = models.CharField('Статус модерации',
+                                  max_length=20,
+                                  choices=status_list,
+                                  default='Модерация',
+                                  help_text='При выборе статуса "Отклонён" попадает в очередь на удаление')
+    moderation = models.BooleanField('Прошел модерацию?', default=False)
+
+    class Meta:
+        abstract = True
+
+    def str_review(self):
+        date = self.time_create.strftime("%d.%m.%Y, %H:%M:%S")
+        return f' отзыв {self.pk}, Обменник: {self.exchange}, Пользователь: {self.username}, Время создания: {date}'
+
+    def str_comment(self):
+        date = self.time_create.strftime("%d.%m.%Y, %H:%M:%S")
+        return f' комментарий {self.pk}, Отзыв №{self.review.pk}, Обменник: {self.review.exchange}, Пользователь: {self.username}, Время создания: {date}'
 
 
 class BaseExchange(models.Model):
@@ -45,13 +81,24 @@ class BaseExchange(models.Model):
                                     null=True,
                                     default=None)
     is_active = models.BooleanField('Статус обменника', default=True)
+    period_for_create = models.IntegerField('Частота добавления в секундах',
+                                            blank=True,
+                                            null=True,
+                                            default=90,
+                                            help_text='Значение - положительное целое число.При установлении в 0, останавливает задачу переодических добавлений',
+                                            validators=[is_positive_validate])
     period_for_update = models.IntegerField('Частота обновлений в секундах',
                                             blank=True,
                                             null=True,
                                             default=60,
                                             help_text='Значение - положительное целое число.При установлении в 0, останавливает задачу переодических обновлений',
                                             validators=[is_positive_validate])
-    # direction_black_list = models.ManyToManyField('Direction', verbose_name='Чёрный список')
+    period_for_parse_black_list = models.IntegerField('Частота парсинга чёрного списка в часах',
+                                                      blank=True,
+                                                      null=True,
+                                                      default=24,
+                                                      help_text='Рекомендуемое значение - 24 часа.\nЗначение - положительное целое число.При установлении в 0, останавливает задачу переодического парсинга чёрного списка',
+                                                      validators=[is_positive_validate])
 
     class Meta:
         abstract = True
@@ -64,18 +111,6 @@ class BaseExchange(models.Model):
     
 
 class BaseDirection(models.Model):
-    # valute_from = models.ForeignKey(Valute,
-    #                                 to_field='code_name',
-    #                                 on_delete=models.CASCADE,
-    #                                 verbose_name='Отдаём',
-    #                                 limit_choices_to=~Q(type_valute='Наличные'),
-    #                                 related_name='no_cash_valutes_from')
-    # valute_to = models.ForeignKey(Valute,
-    #                               to_field='code_name',
-    #                               on_delete=models.CASCADE,
-    #                               verbose_name='Получаем',
-    #                               limit_choices_to=~Q(type_valute='Наличные'),
-    #                               related_name='no_cash_valutes_to')
     
     class Meta:
         abstract = True
@@ -99,10 +134,3 @@ class BaseExchangeDirection(models.Model):
 
     class Meta:
         abstract = True
-    #     # unique_together = (("exchange", "valute_from", "valute_to"), )
-    #     verbose_name = 'Готовое направление'
-    #     verbose_name_plural = 'Готовые направления'
-    #     ordering = ['exchange', 'valute_from', 'valute_to']
-
-    # def __str__(self):
-    #     return f'{self.exchange} ({self.valute_from} -> {self.valute_to})'

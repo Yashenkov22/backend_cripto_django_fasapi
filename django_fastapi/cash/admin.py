@@ -1,11 +1,34 @@
-from typing import Any
-
 from django.contrib import admin
-from django.http.request import HttpRequest
 
-from .periodic_tasks import manage_periodic_task_for_update
+from .periodic_tasks import (manage_periodic_task_for_create,
+                             manage_periodic_task_for_update,
+                             manage_periodic_task_for_parse_black_list)
 
-from .models import Country, City, Exchange, Direction, ExchangeDirection
+from general_models.utils.admin import ReviewAdminMixin
+from general_models.admin import (BaseCommentAdmin,
+                                  BaseCommentStacked,
+                                  BaseReviewAdmin,
+                                  BaseReviewStacked,
+                                  BaseExchangeDirectionAdmin,
+                                  BaseExchangeDirectionStacked,
+                                  BaseDirectionAdmin)
+
+from .models import (Country,
+                     City,
+                     Exchange,
+                     Direction,
+                     ExchangeDirection,
+                     Review,
+                     Comment)
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code_name', 'country', 'is_parse')
+    list_editable = ('is_parse', )
+    list_select_related = ('country', )
+    ordering = ('-is_parse', 'name')
+    search_fields = ('name', 'country__name')
+    list_per_page = 20
 
 
 class CityStacked(admin.StackedInline):
@@ -21,32 +44,33 @@ class CountryAdmin(admin.ModelAdmin):
     inlines = [CityStacked]
 
 
-@admin.register(City)
-class CityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code_name', 'country', 'is_parse')
-    list_editable = ('is_parse', )
-    list_select_related = ('country', )
-    ordering = ('-is_parse', 'name')
-    search_fields = ('name', 'country__name')
-    list_per_page = 20
+@admin.register(Comment)
+class CommentAdmin(BaseCommentAdmin):
+    pass
 
 
-class ExchangeDirectionTabular(admin.StackedInline):
+class CommentStacked(BaseCommentStacked):
+    model = Comment
+
+
+@admin.register(Review)
+class ReviewAdmin(BaseReviewAdmin):
+    inlines = [CommentStacked]
+
+
+class ReviewStacked(BaseReviewStacked):
+    model = Review
+
+
+class ExchangeDirectionStacked(BaseExchangeDirectionStacked):
     model = ExchangeDirection
-    ordering = ('city', 'valute_from', 'valute_to')
-    
-    def has_change_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
-        return False
-    
-    def has_add_permission(self, request: HttpRequest, obj: Any | None = ...) -> bool:
-        return False
 
 
 @admin.register(Exchange)
-class ExchangeAdmin(admin.ModelAdmin):
+class ExchangeAdmin(ReviewAdminMixin, admin.ModelAdmin):
     list_display = ("name", 'is_active')
     readonly_fields = ('is_active', 'direction_black_list')
-    inlines =[ExchangeDirectionTabular]
+    inlines = [ExchangeDirectionStacked, ReviewStacked]
 
     def save_model(self, request, obj, form, change):
         update_fields = []
@@ -57,10 +81,18 @@ class ExchangeAdmin(admin.ModelAdmin):
                 # print('key', key)
                 # print('value', value)
                 if value != form.initial[key]:
-                    if key == 'period_for_update':
-                        manage_periodic_task_for_update(obj.name, value)
-                        # print('PERIOD', form.initial[key])
+                    # if key == 'period_for_update':
+                    #     manage_periodic_task_for_update(obj.name, value)
+                    #     # print('PERIOD', form.initial[key])
 
+                    # update_fields.append(key)
+                    match key:
+                        case 'period_for_create':
+                            manage_periodic_task_for_create(obj.name, value)
+                        case 'period_for_update':
+                            manage_periodic_task_for_update(obj.name, value)
+                        case 'period_for_parse_black_list':
+                            manage_periodic_task_for_parse_black_list(obj.name, value)
                     update_fields.append(key)
 
             obj.save(update_fields=update_fields)
@@ -70,24 +102,11 @@ class ExchangeAdmin(admin.ModelAdmin):
     
 
 @admin.register(Direction)
-class DirectionAdmin(admin.ModelAdmin):
-    list_display = ('get_direction_name', )
-    list_select_related = ('valute_from', 'valute_to')
-    search_fields = ('valute_from__code_name', 'valute_to__code_name')
-
-    def get_direction_name(self, obj):
-        return f'{obj.valute_from} -> {obj.valute_to}'
+class DirectionAdmin(BaseDirectionAdmin):
+    pass
     
 
 @admin.register(ExchangeDirection)
-class ExchangeDirectionAdmin(admin.ModelAdmin):
-    list_display = ("get_display_name", )
-
-    def has_change_permission(self, request, obj = None):
-        return False
-    
-    def has_add_permission(self, request, obj = None):
-        return False
-
+class ExchangeDirectionAdmin(BaseExchangeDirectionAdmin):
     def get_display_name(self, obj):
         return f'{obj.exchange} ({obj.city}: {obj.valute_from} -> {obj.valute_to})'

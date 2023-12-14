@@ -1,7 +1,11 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from general_models.models import BaseExchangeDirection, Valute, BaseExchange, BaseDirection
+from general_models.models import (BaseExchangeDirection,
+                                   Valute,
+                                   BaseExchange,
+                                   BaseDirection,
+                                   BaseReview)
 
 
 class Country(models.Model):
@@ -37,6 +41,36 @@ class City(models.Model):
 class Exchange(BaseExchange):
     direction_black_list = models.ManyToManyField('BlackListElement',
                                                   verbose_name='Чёрный список')
+    
+
+class Review(BaseReview):
+    exchange = models.ForeignKey(Exchange,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Наличный обменник',
+                                 related_name='reviews')
+    
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+        ordering = ('-time_create', 'status', 'exchange')
+
+    def __str__(self):
+        return 'Наличный ' + self.str_review()
+
+
+class Comment(BaseReview):
+    review = models.ForeignKey(Review,
+                               on_delete=models.CASCADE,
+                               verbose_name='Отзыв',
+                               related_name='comments')
+    
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ('-time_create', 'status', 'review')
+
+    def __str__(self):
+        return 'Наличный ' + self.str_comment()
 
 
 class Direction(BaseDirection):
@@ -52,10 +86,13 @@ class Direction(BaseDirection):
                                   related_name='cash_valutes_to')
     
     def clean(self) -> None:
-        if self.valute_from == self.valute_to:
-            raise ValidationError('Значения "Отдаём" и "Получаем" должны быть разные')
         if self.valute_from.type_valute == self.valute_to.type_valute:
             raise ValidationError('Значения "Отдаём" и "Получаем" должны иметь разные типы валют')
+        # if self.valute_from.type_valute == self.valute_to.type_valute:
+        #     raise ValidationError('Значения "Отдаём" и "Получаем" должны иметь разные типы валют')
+        if self.valute_from.type_valute != 'Наличные'\
+              and self.valute_to.type_valute != 'Наличные':
+            raise ValidationError('Одно из значений "Отдаём" и "Получаем" должно иметь наличный тип валюты, другое - безналичный')
 
 
 class ExchangeDirection(BaseExchangeDirection):

@@ -22,7 +22,8 @@ def check_exchange_and_try_get_xml_file(exchange: BaseExchange):
         is_active, xml_file = check_for_active_and_try_get_xml(exchange.xml_url)
     except Exception as ex:
         print('CHECK ACTIVE EXCEPTION!!!', ex)
-        return None
+        exchange.is_active = False
+        exchange.save()
     else:
         if exchange.is_active != is_active:
             exchange.is_active = is_active
@@ -33,10 +34,20 @@ def check_exchange_and_try_get_xml_file(exchange: BaseExchange):
     
 
 def check_for_active_and_try_get_xml(xml_url: str):
-    resp = requests.get(xml_url, timeout=5)
-    headers = resp.headers
+    ########
+    headers = requests.utils.default_headers()
+    headers.update(
+    {
+        'User-Agent': 'My User Agent 1.0',
+    }
+    )
+    ########
+    resp = requests.get(xml_url,
+                        headers=headers,
+                        timeout=5) #можно меньше
+    content_type = resp.headers['Content-Type']
 
-    if not re.match(r'^[a-zA-Z]+\/xml?', headers['Content-Type']):
+    if not re.match(r'^[a-zA-Z]+\/xml?', content_type):
         raise RobotCheckError(f'{xml_url} требует проверку на робота')
     else:
         xml_file = resp.text

@@ -2,17 +2,45 @@ from django.db import models
 from django.db.models import Q
 from django.core.exceptions import ValidationError
 
-from general_models.models import Valute, BaseExchange, BaseDirection, BaseExchangeDirection
+from general_models.models import (Valute,
+                                   BaseExchange,
+                                   BaseDirection,
+                                   BaseExchangeDirection,
+                                   BaseReview)
 
 
 class Exchange(BaseExchange):
     direction_black_list = models.ManyToManyField('Direction', verbose_name='Чёрный список')
 
 
-class Rating(models.Model):
-    # exchange_name = models.CharField(max_length=50, primary_key=True)
-    rating = models.CharField(max_length=50, null=True, default=None)
-    exchange = models.ForeignKey(Exchange, on_delete=models.CASCADE)
+class Review(BaseReview):
+    exchange = models.ForeignKey(Exchange,
+                                 on_delete=models.CASCADE,
+                                 verbose_name='Безналичный обменник',
+                                 related_name='reviews')
+    
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+        ordering = ('-time_create', 'status', 'exchange')
+
+    def __str__(self):
+        return 'Безналичный' + self.str_review()
+
+
+class Comment(BaseReview):
+    review = models.ForeignKey(Review,
+                               on_delete=models.CASCADE,
+                               verbose_name='Отзыв',
+                               related_name='comments')
+    
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        ordering = ('-time_create', 'status', 'review')
+    
+    def __str__(self):
+        return 'Безналичный' + self.str_comment()
 
 
 class Direction(BaseDirection):
